@@ -1,8 +1,9 @@
 import React from 'react';
-import 'bootstrap/dist/css/bootstrap.css';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import TablaDis from './components/Tabla/TablaDisp';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import FormUnirse from './components/Formularios/Unirse/FormUnirse';
+
 
 function App() {
     return(
@@ -11,9 +12,13 @@ function App() {
                 <Switch>
                     <Route path="/partidasDis" exact render = { props => ( <TablaDis {...props} />)}>
                     </Route>
+                    <Route path="/FormU/:idPart/:nomPart" render = { props => ( <FormUnirse {...props} />)}>
+                    </Route>
+                    
                 </Switch>
             </Router>
         </React.Fragment>
     )
 }
 export default App;
+

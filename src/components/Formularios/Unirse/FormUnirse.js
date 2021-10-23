@@ -12,11 +12,20 @@ const FormUnirse = () => {
 
     const {register, handleSubmit, formState:{errors}} = useForm();
 
-    const onSubmit = (data, e) => {
-        data.id_partida= idPart
-        console.log(data)
-        e.target.reset();
+    const onSubmit = (usuario, event) => {
+        usuario.id_partida= idPart
+        console.log(usuario)
+        event.target.reset();
+
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json; charset=UTF-8' },
+            body: JSON.stringify(usuario)
+        }
+        fetch('https://jsonplaceholder.typicode.com/posts', requestOptions)
+        .then(response => response.json())
     }
+
     
     return(
 

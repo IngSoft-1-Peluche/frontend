@@ -1,10 +1,20 @@
+import React from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import FormCrear from './components/Formularios/Crear/FormCrear';
 
-import './App.css';
 
 function App() {
-  return (
-          <div></div>
-  );
-}
+    return(
+        <React.Fragment>
+            <Router>
+                <Switch>
+                    <Route path="/FormCrear" exact render = { props => ( <FormCrear {...props} />)}>
+                    </Route>
+                    
 
+                </Switch>
+            </Router>
+        </React.Fragment>
+    )
+}
 export default App;

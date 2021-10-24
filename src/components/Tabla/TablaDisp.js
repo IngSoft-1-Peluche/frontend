@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
+
 import 'bootstrap/dist/css/bootstrap.css';
 
+//https://my-json-server.typicode.com/Exe773/pruebas/lista
 
-
+//http://localhost:8000/partidas
 
 
 const TablaDisp = () => {
@@ -15,9 +16,10 @@ const TablaDisp = () => {
     const [partida, setPartida] = useState(datosPartidasDefault);
 
     const obtenerPartidas = async () => {
-       const datos = await fetch('https://my-json-server.typicode.com/Exe773/pruebas/lista') 
+       const datos = await fetch('http://localhost:8000/partidas') 
        const partidas = await datos.json()
        setPartida(partidas)
+       console.log(partidas)
     }
 
     useEffect(() => {
@@ -26,6 +28,7 @@ const TablaDisp = () => {
 
 
     return (
+       
 
     <table className="table table-striped table-dark">
         <thead className="thead-dark">
@@ -41,9 +44,11 @@ const TablaDisp = () => {
                 partida.map((partida) => (
                     <tr key={partida.id_partida} className = "table-secondary">
                         <td>{partida.nombre_partida}</td>
-                        <td className>{partida.cantidad_jugadores}</td>
+                        <td>{partida.cantidad_jugadores}</td>
                         <td>
-                            <NavLink to={`/FormU/${partida.id_partida}/${partida.nombre_partida}`}  className= "btn btn-dark" activeClassName="active">Unirse</NavLink>
+                            <a className= "btn btn-dark"
+                             href={`/FormU/${partida.id_partida}/${partida.nombre_partida}`}>Unirse
+                            </a>  
                         </td>
                     </tr>
                     )
@@ -57,6 +62,7 @@ const TablaDisp = () => {
             
         </tbody>
     </table>
+ 
     );
 }
 

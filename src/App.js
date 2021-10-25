@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import FormCrear from './components/Formularios/Crear/FormCrear';
 import TablaDis from './components/Tabla/TablaDisp';
 import FormUnirse from './components/Formularios/Unirse/FormUnirse';
+import ListarJugadores from './components/Listar/ListarJugadores';
 
 
 function App() {
@@ -18,7 +19,9 @@ function App() {
                     </Route>
                     <Route path="/FormU/:idPart/:nomPart" render = { props => ( <FormUnirse {...props} />)}>
                     </Route>
-                    
+                    <Route path="/partidas/:id" render = { props => ( <ListarJugadores {...props}/>)}>
+                    </Route>
+                   
                 </Switch>
             </Router>
         </React.Fragment>

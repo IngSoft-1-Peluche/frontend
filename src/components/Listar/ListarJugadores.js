@@ -26,7 +26,7 @@ const ListarJugadores = (id) => {
   myList.push(todos.find(element => element.en_turno === true));
   let index = myList[0].orden
   console.log(index)
-  for (var i = index + 1 ; i < 7 ; i++){
+  for (var i = index + 1 ; i < todos.length +1 ; i++){
   myList.push(todos.find(element => element.orden === i));
   };
   for (var j = 1 ; j < index ; j++){

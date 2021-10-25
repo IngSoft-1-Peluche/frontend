@@ -5,6 +5,7 @@ import FormCrear from './components/Formularios/Crear/FormCrear';
 import TablaDis from './components/Tabla/TablaDisp';
 import FormUnirse from './components/Formularios/Unirse/FormUnirse';
 import ListarJugadores from './components/Listar/ListarJugadores';
+import IniciarPartida from './components/Iniciar/IniciarPartida';
 
 
 function App() {
@@ -20,6 +21,8 @@ function App() {
                     <Route path="/FormU/:idPart/:nomPart" render = { props => ( <FormUnirse {...props} />)}>
                     </Route>
                     <Route path="/partidas/:id" render = { props => ( <ListarJugadores {...props}/>)}>
+                    </Route>
+                    <Route path="/iniciar/:id/:id_J" render = { props => ( <IniciarPartida {...props}/>)}>
                     </Route>
                    
                 </Switch>

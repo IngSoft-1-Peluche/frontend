@@ -15,7 +15,7 @@ function App() {
                     </Route>
                     <Route path="/FormU/:idPart/:nomPart" render = { props => ( <FormUnirse {...props} />)}>
                     </Route>
-                    <Route path="/partidas/lista" render = { props => ( <ListarJugadores id={1}/>)}>
+                    <Route path="/partidas/:id" render = { props => ( <ListarJugadores {...props}/>)}>
                     </Route>
                    
                 </Switch>

@@ -1,14 +1,26 @@
 import React, { useState, useEffect, find } from 'react';
+import { useParams } from 'react-router';
 
 
-const ListarJugadores = (id) => {
-  const datosPartidasDefault = {id_partida: 0, nombre: '', jugadores: []}
-
+const ListarJugadores = () => {
+  const datosPartidasDefault = {id_partida: 0, nombre: '', jugadores: [{
+    "id_jugador": 1,
+    "apodo": "",
+    "orden": 1,
+    "en_turno": true
+  }]
+};
+const {id}=useParams();
 
   const [lista, setLista] = useState(datosPartidasDefault);
 
+  useEffect(() => {
+    obtenerDatos()
+  }, [])
+  
+
   const obtenerDatos = async () => {
-    const data = await fetch('http://localhost:8000/partidas/${id}')
+    const data = await fetch(`http://localhost:8000/partidas/${id}`)
     const jugador = await data.json()
     setLista(jugador)
     console.log(jugador)
@@ -17,7 +29,8 @@ const ListarJugadores = (id) => {
   useEffect(() => {
     obtenerDatos()
   }, [])
-  
+
+    
   const todos = lista.jugadores.sort(function (a, b) {
     return a.orden - b.orden;
   });

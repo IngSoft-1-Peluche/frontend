@@ -1,13 +1,9 @@
 import React from 'react';
-import { render } from '@testing-library/react';
-import { BrowserRouter as Router, Link, MemoryRouter} from 'react-router-dom';
-import { shallow, configure } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import { render, screen } from '@testing-library/react';
+import '@testing-library/jest-dom/extend-expect'
+import { BrowserRouter as Router} from 'react-router-dom';
 
 import PagInicio from './PagInicio';
-
-configure({ adapter: new Adapter() });
-
 
 
 
@@ -20,13 +16,19 @@ test('Pagina inicio renderiza correctamente', () =>{
 
 });
 
-it('incluye link a crear partida', () => {
+test('Click en crear nos dirige a la url correcta', () => {
 
-   
-
-    const wrapper = shallow(<Router><PagInicio /></Router>);
-    expect(wrapper.find(Link).to).toBe('/FormCrear');
-
+   const component = render(<Router><PagInicio /></Router>);
+   const boton_crear = screen.getByText('Crear Partida')
+   expect( boton_crear).toHaveAttribute( 'href','/FormCrear')
 
 });
+
+test('Click en unirce a partida nos dirige a la url correcta', () => {
+
+    const component = render(<Router><PagInicio /></Router>);
+    const boton_crear = screen.getByText('Unirse a partida creada')
+    expect( boton_crear).toHaveAttribute( 'href','/PartidasDis')
+ 
+ });
 

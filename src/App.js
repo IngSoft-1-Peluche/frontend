@@ -5,8 +5,9 @@ import FormCrear from './components/Formularios/Crear/FormCrear';
 import TablaDis from './components/Tabla/TablaDisp';
 import FormUnirse from './components/Formularios/Unirse/FormUnirse';
 import ListarJugadores from './components/Listar/ListarJugadores';
-import IniciarPartida from './components/Iniciar/IniciarPartida';
 import PagInicio from './components/Inicio/PagInicio'
+import SalaEspera from './components/Espera/SalaEspera';
+
 
 function App() {
     return(
@@ -22,11 +23,11 @@ function App() {
                     </Route>
                     <Route exact path="/partidas/:id" render = { props => ( <ListarJugadores {...props}/>)}>
                     </Route>
-                    <Route exact path="/iniciar/:id/:id_J" render = { props => ( <IniciarPartida {...props}/>)}>
+                    <Route exact path="/salaEsp/:id_p/:id_j" render = { props => ( <SalaEspera {...props}/>)}>
                     </Route>
-                    <Route exact path="/" render = { props => ( <PagInicio {...props}/>)}>
-                    </Route>
-                    <Route path="*"><h1>404 Pagina no encontrada</h1></Route>
+                  
+                    <Route exact path="/" component = {PagInicio}/>
+                    <Route path="*">{<h1>404 Pagina no encontrada</h1>}</Route>
                    
                 </Switch>
             </Router>

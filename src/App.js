@@ -6,7 +6,7 @@ import TablaDis from './components/Tabla/TablaDisp';
 import FormUnirse from './components/Formularios/Unirse/FormUnirse';
 import ListarJugadores from './components/Listar/ListarJugadores';
 import IniciarPartida from './components/Iniciar/IniciarPartida';
-
+import PagInicio from './components/Inicio/PagInicio'
 
 function App() {
     return(
@@ -14,16 +14,19 @@ function App() {
             <Router>
                 <Switch>
 
-                    <Route path="/FormCrear" exact render = { props => ( <FormCrear {...props} />)}>
+                    <Route exact path="/FormCrear" render = { props => ( <FormCrear {...props} />)}>
                     </Route>
-                    <Route path="/partidasDis" exact render = { props => ( <TablaDis {...props} />)}>
+                    <Route exact path="/partidasDis" render = { props => ( <TablaDis {...props} />)}>
                     </Route>
-                    <Route path="/FormU/:idPart/:nomPart" render = { props => ( <FormUnirse {...props} />)}>
+                    <Route exact path="/FormU/:idPart/:nomPart" render = { props => ( <FormUnirse {...props} />)}>
                     </Route>
-                    <Route path="/partidas/:id" render = { props => ( <ListarJugadores {...props}/>)}>
+                    <Route exact path="/partidas/:id" render = { props => ( <ListarJugadores {...props}/>)}>
                     </Route>
-                    <Route path="/iniciar/:id/:id_J" render = { props => ( <IniciarPartida {...props}/>)}>
+                    <Route exact path="/iniciar/:id/:id_J" render = { props => ( <IniciarPartida {...props}/>)}>
                     </Route>
+                    <Route exact path="/" render = { props => ( <PagInicio {...props}/>)}>
+                    </Route>
+                    <Route path="*"><h1>404 Pagina no encontrada</h1></Route>
                    
                 </Switch>
             </Router>

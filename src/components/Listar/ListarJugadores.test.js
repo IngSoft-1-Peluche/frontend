@@ -1,15 +1,12 @@
 import React from 'react';
-import {jest} from '@jest/globals'
 import {render, screen, waitFor} from '@testing-library/react'
-import '@testing-library/jest-dom/extend-expect';
 import {rest} from 'msw';
 import {setupServer} from 'msw/node';
 import ListarJugadores from './ListarJugadores';
 import { withRouter } from "react-router-dom";
 import { createMemoryHistory } from "history"; 
-import { browserHistory, Router, Route } from 'react-router';
-import { useParams } from 'react-router';
-import { useState, useEffect } from 'react';
+import {Router, Route } from 'react-router';
+
 
 // Fuente : https://medium.com/@aarling/mocking-a-react-router-match-object-in-your-component-tests-fa95904dcc55
 

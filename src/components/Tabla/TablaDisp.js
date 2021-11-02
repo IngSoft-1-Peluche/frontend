@@ -1,4 +1,4 @@
-    import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import 'bootstrap/dist/css/bootstrap.css';
 
@@ -15,7 +15,6 @@ const TablaDisp = () => {
        const datos = await fetch('http://localhost:8000/partidas') 
        const partidas = await datos.json()
        setPartida(partidas)
-       console.log(partidas)
     }
 
     useEffect(() => {

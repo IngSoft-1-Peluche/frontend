@@ -21,7 +21,7 @@ const IniciarPartida = () => {
     let resultado = await data.json()
     console.log(resultado)
     resultado = resultado["detail"]
-    if (resultado == undefined){
+    if (resultado === undefined){
       resultado = "Partida creada"
     }
     fillData(resultado)

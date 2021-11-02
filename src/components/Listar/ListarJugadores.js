@@ -13,11 +13,10 @@ const ListarJugadores = () => {
 const {id} = useParams();
 
   const [lista, setLista] = useState(datosPartidasDefault);
-  let partida_no_disponible
   const obtenerDatos = async () => {
     const data = await fetch(`http://localhost:8000/partidas/${id}`)
     const jugador = await data.json()
-    if (jugador != undefined){
+    if (jugador !== undefined){
       setLista(jugador)
     }
   }
@@ -26,14 +25,14 @@ const {id} = useParams();
     obtenerDatos()
   }, [])
   
-  if (lista.jugadores != undefined){
+  if (lista.jugadores !== undefined){
     const todos = lista.jugadores.sort(function (a, b) {
       return a.orden - b.orden;
     });
     let myList = [];
     
     myList.push(todos.find(element => element.en_turno === true))
-    if (myList[0] != undefined){
+    if (myList[0] !== undefined){
       let index = myList[0].orden
       for (var i = index + 1 ; i < todos.length +1 ; i++){
         myList.push(todos.find(element => element.orden === i))

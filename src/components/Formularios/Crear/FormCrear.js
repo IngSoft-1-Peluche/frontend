@@ -13,7 +13,7 @@ const FormCrear = (login) => {
   
     const onSubmit = async (data) => {
       console.log(data);
-      const respuesta = await fetch("http://localhost:8000/partidas/", {
+      await fetch("http://localhost:8000/partidas/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data)}).then(respuesta => respuesta.json())
@@ -33,6 +33,7 @@ const FormCrear = (login) => {
         </div>    
         <label htmlFor="apodo">Apodo:</label>
         <input
+          data-testid = "casilla input"
           {...register("apodo", {
             required: "Apodo obligatorio",
             maxLength: { value: 20, message: "20 caracteres máximo" }

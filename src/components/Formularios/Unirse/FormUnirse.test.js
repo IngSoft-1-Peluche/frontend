@@ -57,7 +57,6 @@ test('Unir un usuario a partida', async () => {
     await waitFor(() => screen.getByText('Definición de apodo para entrar a'), { timeout: 4000 })  
     const casilla_input = screen.getByPlaceholderText("Ingrese su apodo")
     casilla_input.value = "apodoJugador1"
-    screen.debug()
     const boton_enviar =  await waitFor(() => screen.getByText('Confirmar'), { timeout: 4000 })  
     await waitFor(() => userEvent.click(boton_enviar), { timeout: 4000 })
 

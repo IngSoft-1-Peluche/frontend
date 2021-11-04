@@ -5,7 +5,12 @@ import MisterioBoard from '../../assets/imagenes/MisterioBoard.jpeg'
 const Tablero = () =>{
 
     return(
-        <img src={MisterioBoard}></img>
+
+    
+        <div className='fondo'>
+            <img className='tablero' src={MisterioBoard}></img>
+        </div>
+        
     )
 
 }

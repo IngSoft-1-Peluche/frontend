@@ -21,19 +21,19 @@ const FormCrear = () => {
   
     const onSubmit = async (data) => {
      
-        const respuesta = await fetch("http://localhost:8000/partidas/", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data)}).then(respuesta => respuesta.json());
+    const respuesta = await fetch("http://localhost:8000/partidas/", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data)}).then(respuesta => respuesta.json());
 
-        window.localStorage.setItem('logueado', JSON.stringify({
-                                    apodo: respuesta.apodo, 
-                                    id_jugador: respuesta.id_jugador, 
-                                    creador: true}))
+    window.localStorage.setItem('logueado', JSON.stringify({
+                                apodo: respuesta.apodo, 
+                                id_jugador: respuesta.id_jugador, 
+                                creador: true}))
 
-        history.push(`/salaEsp/${respuesta.id_partida}`);
+    history.push(`/salaEsp/${respuesta.id_partida}`);
 
-    };
+};
     
     return (
       <form onSubmit={handleSubmit(onSubmit)}>      
@@ -49,6 +49,7 @@ const FormCrear = () => {
         </div>    
         <label htmlFor="apodo">Apodo:</label>
         <input
+          data-testid = "casilla input"
           {...register("apodo", {
             required: "Apodo obligatorio",
             maxLength: { value: 20, message: "20 caracteres máximo" }

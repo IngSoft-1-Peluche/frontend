@@ -5,33 +5,31 @@ import FormCrear from './components/Formularios/Crear/FormCrear';
 import TablaDis from './components/Tabla/TablaDisp';
 import FormUnirse from './components/Formularios/Unirse/FormUnirse';
 import ListarJugadores from './components/Listar/ListarJugadores';
-import IniciarPartida from './components/Iniciar/IniciarPartida';
 import PagInicio from './components/Inicio/PagInicio'
+import SalaEspera from './components/Espera/SalaEspera';
+import StoreProvider from './store/StoreProvider';
+
 
 function App() {
     return(
-        <React.Fragment>
-            <Router>
-                <Switch>
-
-                    <Route exact path="/FormCrear" render = { props => ( <FormCrear {...props} />)}>
-                    </Route>
-                    <Route exact path="/partidasDis" render = { props => ( <TablaDis {...props} />)}>
-                    </Route>
-                    <Route exact path="/FormU/:idPart/:nomPart" render = { props => ( <FormUnirse {...props} />)}>
-                    </Route>
-                    <Route exact path="/partidas/:id" render = { props => ( <ListarJugadores {...props}/>)}>
-                    </Route>
-                    <Route exact path="/iniciar/:id/:id_J" render = { props => ( <IniciarPartida {...props}/>)}>
-                    </Route>
-                    <Route exact path="/" render = { props => ( <PagInicio {...props}/>)}>
-                    </Route>
-                    <Route path="*"><h1>404 Pagina no encontrada</h1></Route>
-                   
-                </Switch>
-            </Router>
-        </React.Fragment>
-    )
+        <StoreProvider>
+            <React.Fragment>
+                <Router>
+                    <Switch>
+                        
+                        <Route exact path="/partidasDis" component = { TablaDis }/>
+                        <Route exact path="/FormCrear" component = { FormCrear }/>
+                        <Route exact path="/FormU/:idPart/:nomPart" component = { FormUnirse }/>
+                        <Route exact path="/salaEsp/:id_p" component = { SalaEspera }/>
+                        <Route exact path="/partidas/:id" component = { ListarJugadores }/>
+                        <Route exact path="/" component = { PagInicio }/>
+                        <Route path="*">{<h1>404 Pagina no encontrada</h1>}</Route>
+                    
+                    </Switch>
+                </Router>
+            </React.Fragment>
+        </StoreProvider>
+    );
 }
 
 export default App;

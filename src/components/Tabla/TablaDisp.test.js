@@ -4,6 +4,7 @@ import '@testing-library/jest-dom/extend-expect';
 import {rest} from 'msw';
 import {setupServer} from 'msw/node';
 import TablaDisp from './TablaDisp';
+import {BrowserRouter as Router} from "react-router-dom" ;
 
 const MOCK_GET = [
     {"id_partida":1,"nombre_partida":"PrimerPartida","cantidad_jugadores":1},
@@ -23,7 +24,9 @@ afterEach(() => server.resetHandlers())
 afterAll(() => server.close())
 
 test('Conectado y partidas disponibles', async () => {
-    const component = render(<TablaDisp/>)
+    const component = render(<Router>
+                                <TablaDisp />
+                            </Router> )
     await component.findByText('Partidas')
     await component.findByText('Cantidad de jugadores')
     await component.findByText('PrimerPartida')
@@ -33,7 +36,9 @@ test('Conectado y partidas disponibles', async () => {
 })
 
 test("Click en unirse nos redirige a la url correcta", async () =>{
-    const component = render(<TablaDisp />);
+    const component = render(<Router>
+                                <TablaDisp />
+                            </Router> );
     await waitFor(() => screen.getByText('TerceraPartida'), { timeout: 3000 })
     const botones_unirse = screen.getAllByText('Unirse')
     expect(await botones_unirse[0]).toHaveAttribute('href', '/FormU/1/PrimerPartida')
@@ -49,6 +54,8 @@ test('No hay partidas disponibles', async () => {
         return res(ctx.status(200), ctx.json([]))
     }), )
 
-    const component = render(<TablaDisp/>)
+    const component = render(<Router>
+                                <TablaDisp />
+                            </Router> )
     await waitFor(() => screen.getByText('No hay partidas disponibles'), { timeout: 3000 })
 })

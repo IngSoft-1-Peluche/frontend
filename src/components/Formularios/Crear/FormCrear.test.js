@@ -27,6 +27,4 @@ test('Crear una partida', async () => {
     casilla_input.value = "apodoJugador1"
     const boton_enviar =  await waitFor(() => screen.getByText('Crear partida'), { timeout: 4000 })  
     await waitFor(() => userEvent.click(boton_enviar), { timeout: 4000 })
-    
-    screen.debug()
 })

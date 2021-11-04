@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+
 
 import 'bootstrap/dist/css/bootstrap.css';
 
@@ -41,9 +43,9 @@ const TablaDisp = () => {
                         <td>{partida.nombre_partida}</td>
                         <td>{partida.cantidad_jugadores}</td>
                         <td>
-                            <a className= "btn btn-dark"
-                             href={`/FormU/${partida.id_partida}/${partida.nombre_partida}`}>Unirse
-                            </a>  
+                            <Link className= "btn btn-dark"
+                             to={`/FormU/${partida.id_partida}/${partida.nombre_partida}`}>Unirse
+                            </Link>  
                         </td>
                     </tr>
                     )

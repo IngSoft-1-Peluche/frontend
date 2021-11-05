@@ -1,12 +1,15 @@
-.fondo {
-  margin-left: auto;
-  margin-right: auto;
-  background-color: black;
+.todo {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  align-content: stretch;
+  width: 50%;
 }
 
-.tablero {
-  margin-left: auto;
-  margin-right: auto;
+.todo1 {
+  display: flex;
+  flex-direction: column;
   width: 50%;
-  display: block;
 }

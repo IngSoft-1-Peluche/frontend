@@ -8,6 +8,7 @@ import ListarJugadores from './components/Listar/ListarJugadores';
 import PagInicio from './components/Inicio/PagInicio'
 import SalaEspera from './components/Espera/SalaEspera';
 import StoreProvider from './store/StoreProvider';
+import CartasRepartidas from './components/MostrarCartas/CartasRepartidas';
 
 
 function App() {
@@ -22,6 +23,9 @@ function App() {
                         <Route exact path="/FormU/:idPart/:nomPart" component = { FormUnirse }/>
                         <Route exact path="/salaEsp/:id_p" component = { SalaEspera }/>
                         <Route exact path="/partidas/:id" component = { ListarJugadores }/>
+
+                        <Route exact path="/cartas/:idPart" component = { CartasRepartidas }/>
+                        
                         <Route exact path="/" component = { PagInicio }/>
                         <Route path="*">{<h1>404 Pagina no encontrada</h1>}</Route>
                     

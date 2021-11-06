@@ -5,12 +5,12 @@ import 'bootstrap/dist/css/bootstrap.css';
 import IniciarPartida from '../Iniciar/IniciarPartida';
 
 
-const SalaEspera = () => {
 
+const SalaEspera = () => {
 
     const { id_p }= useParams();
 
-    var logueado = JSON.parse(localStorage.getItem('logueado'));
+    var logueado = JSON.parse(sessionStorage.getItem('logueado'));
        
     const datosPartidasDefault = {id_partida: null, nombre: '', jugadores: [{
           "id_jugador": null,
@@ -25,13 +25,13 @@ const SalaEspera = () => {
     const obtenerDatos = async () => {
         const data = await fetch(`http://localhost:8000/partidas/${id_p}`)
         const jugador = await data.json()
-        setPartida(jugador)  
        
+        setPartida(jugador)       
     }
 
     useEffect(() => {
-        obtenerDatos()
-    }, [])
+      obtenerDatos();
+    }, []);
 
     return (
 
@@ -60,7 +60,7 @@ const SalaEspera = () => {
                             
                             <td>{jugador.apodo}</td>
                             {logueado.creador && partida.jugadores.length > 1
-                             && (jugador.id_jugador == logueado.id_jugador) ? (
+                             && (jugador.id_jugador === logueado.id_jugador) ? (
                                 <td><IniciarPartida id={partida.id_partida} id_J={logueado.id_jugador} /></td>
 
                             ):(

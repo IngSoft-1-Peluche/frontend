@@ -60,7 +60,7 @@ const SalaEspera = () => {
                             
                             <td>{jugador.apodo}</td>
                             {logueado.creador && partida.jugadores.length > 1
-                             && (jugador.id_jugador == logueado.id_jugador) ? (
+                             && (jugador.id_jugador === logueado.id_jugador) ? (
                                 <td><IniciarPartida id={partida.id_partida} id_J={logueado.id_jugador} /></td>
 
                             ):(

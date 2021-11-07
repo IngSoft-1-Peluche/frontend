@@ -4,22 +4,37 @@ import 'bootstrap/dist/css/bootstrap.css';
 
 
 
-const Sospechar = ({id_partida}) => {
+const Sospechar = () => {
 
+  var jugador = JSON.parse(sessionStorage.getItem('loguedo'));
+
+  const [ws, setWs] = useState(new WebSocket(`ws://localhost:8000/ws/${jugador.id_jugador}`));
+
+  const [cartasSos, SetCartasSos] = useState([null])
   const {
     register,
     handleSubmit,
   } = useForm();
 
-  const onSubmit = async (data) => {
-    console.log(data);
+ /* ws.onmessage= function (event) {
     
-    const respuesta = await fetch(`http://localhost:8000/${id_partida}/sospechar`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data)
-    }).then(respuesta => respuesta.json())   
-  };
+    const evento = JSON.parse(event.data)
+
+    switch (evento.action){
+
+      case 'elegir_sosecha':
+        const datos = evento.data.cartas
+        SetCartasSos(datos)
+        return;
+    }
+  }*/
+
+  const onSubmit = async (info) => {
+    const data = JSON.stringify({action:'elegir_sospecha', data: info})
+    ws.send(data)
+    return (
+    <div>Usted sospecho de {cartasSos[0]},{cartasSos[1]} y de {cartasSos[2]} </div>)
+  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

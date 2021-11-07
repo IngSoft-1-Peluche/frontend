@@ -26,7 +26,7 @@ const FormCrear = () => {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data)}).then(respuesta => respuesta.json());
 
-    window.localStorage.setItem('logueado', JSON.stringify({
+    window.sessionStorage.setItem('logueado', JSON.stringify({
                                 apodo: respuesta.apodo, 
                                 id_jugador: respuesta.id_jugador, 
                                 creador: true}))

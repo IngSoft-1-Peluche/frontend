@@ -1,13 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './CartasRepartidas.css'
 
 const CartasRepartidas = () => {
+
 
   var jugador = JSON.parse(sessionStorage.getItem('logueado'));
 
   const [ws, setWs] = useState(new WebSocket(`ws://localhost:8000/ws/${jugador.id_jugador}`))
 
-  const [cartasJu, setCartasJu] = useState(['']);
+  const [cartasJu, setCartasJu] = useState([null]);
+
+  const[visible, setVisible] = useState(false)
 
   ws.onmessage = function (event) {
 
@@ -22,18 +25,20 @@ const CartasRepartidas = () => {
     }
   }
 
-  const mostrar = () => {
-    const data = JSON.stringify({action: 'repartir', data:''})
-    wd.send(data)
+  const mostrar = (event) => {
+    const data = JSON.stringify({action: 'mostrar_cartas', data:''})
+    ws.send(data)
+    setVisible(true)
   }
 
-  useEffect(() => {
-    mostrar()
-  },[])
+  const OcultarCartas = () => {
+    setVisible(false)
+  }
 
+  
 
   const MostrarCartas = () => {
-
+    
     return (cartasJu.map((carta) => (
       <div className="flex-div" key={carta}>
         <img className="brightness" src={`/assets/${carta}.png`} width="90" height="137" />
@@ -45,11 +50,24 @@ const CartasRepartidas = () => {
   return (
 
     <div>
-      <h4>Cartas</h4>
-      <div className="flex-container">
-        <MostrarCartas />
-      </div>
+    <h4>Cartas de {jugador.apodo} </h4>
+
+      {visible && cartasJu.length > 1 ? (
+
+        <div>
+          <div className="flex-container"><MostrarCartas /></div>
+          <button onClick={OcultarCartas}>Ocultar cartas</button>
+        </div>
+                                
+
+      ):(
+
+        <button onClick={mostrar}>Mostrar cartas</button>
+
+      )}
+
     </div>
+    
   )
 }
 

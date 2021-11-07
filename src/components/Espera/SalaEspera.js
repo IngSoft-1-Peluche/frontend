@@ -10,7 +10,7 @@ const SalaEspera = () => {
 
     const { id_p }= useParams();
 
-    var logueado = JSON.parse(localStorage.getItem('logueado'));
+    var logueado = JSON.parse(sessionStorage.getItem('logueado'));
        
     const datosPartidasDefault = {id_partida: null, nombre: '', jugadores: [{
           "id_jugador": null,

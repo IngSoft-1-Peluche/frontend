@@ -8,7 +8,9 @@ import ListarJugadores from './components/Listar/ListarJugadores';
 import PagInicio from './components/Inicio/PagInicio'
 import SalaEspera from './components/Espera/SalaEspera';
 import StoreProvider from './store/StoreProvider';
+
 import CartasRepartidas from './components/MostrarCartas/CartasRepartidas';
+
 
 
 function App() {

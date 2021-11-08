@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
+import { useHistory } from 'react-router-dom';
 
 import 'bootstrap/dist/css/bootstrap.css';
 
 
 const TablaDisp = () => {
+
+    const history= useHistory();
 
     const datosPartidasDefault = [ 
         {id_partida: '', nombre_partida: '', cantidad_jugadores: ''}     
@@ -18,10 +21,17 @@ const TablaDisp = () => {
        const partidas = await datos.json()
        setPartida(partidas)
     }
+    
 
     useEffect(() => {
+        
         obtenerPartidas()
     }, [])
+
+
+    const recargar = () => {
+        window.location.reload()
+    }
 
 
     return (
@@ -32,7 +42,9 @@ const TablaDisp = () => {
             <tr>
                 <th scope="col">Partidas</th>
                 <th scope="col">Cantidad de jugadores</th>
-                <th></th>
+                <th>
+                    <button onClick={recargar} >Actualizar</button>
+                </th>
                 
             </tr>
         </thead>

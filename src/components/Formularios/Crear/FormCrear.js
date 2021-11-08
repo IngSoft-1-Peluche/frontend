@@ -7,12 +7,9 @@ import { useHistory } from 'react-router-dom';
 
 const FormCrear = () => {
 
-   
-
+  
     const history= useHistory();
 
-    
-  
     const {
       register,
       handleSubmit,

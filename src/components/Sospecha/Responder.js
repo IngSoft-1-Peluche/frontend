@@ -3,6 +3,8 @@ import './Responder.css'
 
 const ResponderSospecha = () => {
 
+  var jugador = JSON.parse(sessionStorage.getItem('logueado'));
+
   const [eleg, setEleg] = useState({ nombre: '', elegido: false }); //carta elegida para responder la sospecha
 
   const datosPartidasDefault =
@@ -15,27 +17,30 @@ const ResponderSospecha = () => {
 
   const [ws, setWs] = useState(new WebSocket(`ws://localhost:8000/ws/${jugador.id_jugador}`));
 
+  console.log(sospecha)
+
 
 
   ws.onmessage = function (event) {
 
     const evento = JSON.parse(event.data)
 
+    
+
     switch(evento.action){
 
-      case 'cartas_sospechadas':
+      case 'sospechan':
         const datos= evento.data.cartas
+        console.log(datos)
         setSospecha(datos)
       return;
-      
-      default:
-        return;
     }
   }
 
   const respuesta_sospecha = () => {
 
     const data = JSON.stringify({action: 'respuesta_sospecha', data: eleg})
+    console.log(data)
     ws.send(data)
 
   }
@@ -55,10 +60,8 @@ const ResponderSospecha = () => {
   return (
 
     <div className="fondo">
-      <h4>El jugador {datos.nombre_jugador} sospecha que tenes alguna de estas cartas:</h4>
-      <div className="flex-container">
-        <MostrarSospecha />
-      </div>
+      <h4>El jugador {sospecha.nombre_jugador} sospecha que tenes alguna de estas cartas:</h4>
+      
       {!eleg.elegido && <p>Elegí una carta!!! </p>}
       {eleg.elegido && <button onClick={respuesta_sospecha} >
         Carta elegida : {eleg.nombre}

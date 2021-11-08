@@ -30,7 +30,7 @@ const FormUnirse = () => {
         const respuesta = await fetch(`http://localhost:8000/partidas/${idPart}?apodo=${usuario.apodo}`, requestOptions)
         .then(response => response.json());
         
-        window.localStorage.setItem('logueado', JSON.stringify({
+        window.sessionStorage.setItem('logueado', JSON.stringify({
                                     apodo: respuesta.apodo, 
                                     id_jugador: respuesta.id_jugador, 
                                     creador: false}))

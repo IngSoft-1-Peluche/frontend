@@ -1,6 +1,6 @@
 .todo {
   display: flex;
-  flex-direction: row;
+	flex-direction: row;
 }
 
 .todo1 {
@@ -8,4 +8,36 @@
   flex-direction: column;
 }
 
+.back {
+  height: 50%;
+  width: 50%;
+}
 
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.container {
+  position: relative;
+  padding: 0;
+  color: rgb(235, 66, 23);
+}
+
+.img {
+  border:2px solid rgb(255, 0, 0);
+}
+
+.dot {
+  height: 25px;
+  width: 25px;
+  background-color: rgb(49, 148, 40);
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.fondo{
+  background-color: black;
+}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, classList, useEffect} from 'react';
 import './Tablero.css';
 import cochera from '../../assets/imagenes/cochera.jpg';
 import alcoba from '../../assets/imagenes/alcoba.jpg';
@@ -88,142 +88,183 @@ import entrada_08 from '../../assets/imagenes/entrada_08.jpg';
 
 const Tablero = () =>{
 
-    const click_on_image = () => {console.log("click")}
-    
+    const [posicion,setPosicion]= useState(2)
+    const [text,setText]= useState(false)
+    const [mov,setMov]= useState([6,8,10,12,14,3,11,12,13,15])
+
+    useEffect(() => {
+        cambiar()
+        console.log("efect")
+    }, [mov])
+
+    const cambiar = () => {
+        mov.forEach(element => {
+            var a = document.getElementById(element);
+            a.classList.toggle('img');
+        });  
+    }
+
+    const click_on_image = (event) => {
+        if (mov.find(element => element == event.target.id)) {
+        setPosicion(event.target.id)
+        setText(false)
+        setMov([])
+        }
+        else {}
+    }
+
+    const Casillero = ({id,imagen,width,height}) =>{
+        return(
+        <div className="container" >
+        <img   src={imagen} id={id} onClick={click_on_image} alt="imagen" width={width} height={height}/>
+        {(posicion==id) && <div className="centered dot"></div>}
+        </div>
+        )
+    }
+
     return(
-        <div>
+        <>
+        <div className="todo">
+            <div className="fondo">
             <div className="todo">
-                <img src={cochera} onClick={click_on_image} alt="casilla 1"/>
+                <Casillero id="1" imagen={cochera} width="300" height="300"/>
+                <div className="todo1" >
+                    <Casillero id="2" imagen={entrada_1} width="60" height="83"/>
+                    <Casillero id="6" imagen={casilla_1} width="60" height="43"/>
+                    <Casillero id="8" imagen={casilla_2} width="60" height="43"/>
+                    <Casillero id="10" imagen={casilla_3} width="60" height="43"/>
+                    <Casillero id="12" imagen={casilla_4_vampiro} width="60" height="43"/>
+                    <Casillero id="14" imagen={casilla_5} width="60" height="43"/>
+                </div>
+                <div>
+                    <Casillero id="3" imagen={alcoba} width="300" height="300"/>
+                </div>
                 <div className="todo1">
-                    <img src={entrada_1} onClick={click_on_image} alt="entrada_1"/>
-                    <img src={casilla_1} onClick={click_on_image} alt="casilla_1"/>  
-                    <img src={casilla_2} onClick={click_on_image} alt="casilla_2"/>
-                    <img src={casilla_3} onClick={click_on_image} alt="casilla_3"/>
-                    <img src={casilla_4_vampiro} onClick={click_on_image} alt="casilla_4_vampiro"/>
-                    <img src={casilla_5} onClick={click_on_image} alt="casilla_5"/>
+                    <Casillero id="4" imagen={entrada_4} width="60" height="83"/>
+                    <Casillero id="7" imagen={casilla_24} width="60" height="43"/>
+                    <Casillero id="9" imagen={casilla_25} width="60" height="43"/>
+                    <Casillero id="11" imagen={casilla_26_alacran} width="60" height="43"/>
+                    <Casillero id="13" imagen={casilla_27} width="60" height="43"/>
+                    <Casillero id="15" imagen={casilla_28} width="60" height="43"/>
                 </div>
-                <div className="todo">
-                    <img src={alcoba} onClick={click_on_image} alt="alcoba"/>
-                </div>
-                <div className="todo1">
-                    <img id="5" src={entrada_4} onClick={click_on_image} alt="entrada_4"/>
-                    <img src={casilla_24} onClick={click_on_image} alt="casilla_24"/>  
-                    <img src={casilla_25} onClick={click_on_image} alt="casilla_25"/>
-                    <img src={casilla_26_alacran} onClick={click_on_image} alt="casilla_26_alacran"/>
-                    <img src={casilla_27} onClick={click_on_image} alt="casilla_27"/>
-                    <img src={casilla_28} onClick={click_on_image} alt="casilla_28"/>
-                </div>
-                <div className="todo">
-                    <img src={biblioteca} onClick={click_on_image} alt="biblioteca"/>
+                <div>
+                    <Casillero id="5" imagen={biblioteca} width="300" height="300"/>
                 </div>
             </div>
 
             <div className="todo">
-                <img src={entrada_2} onClick={click_on_image} alt="entrada_2"/>
-                <img src={casilla_6} onClick={click_on_image} alt="casilla_6"/>
-                <img src={casilla_7} onClick={click_on_image} alt="casilla_7"/>
-                <img src={casilla_8_serpiente} onClick={click_on_image} alt="casilla_8_serpiente"/>
-                <img src={casilla_9} onClick={click_on_image} alt="casilla_9"/>
-                <img src={casilla_10} onClick={click_on_image} alt="casilla_10"/>
-                <img src={casilla_11_trampilla} onClick={click_on_image} alt="casilla_11_trampilla"/>
-                <img src={casilla_12} onClick={click_on_image} alt="casilla_12"/>
-                <img src={casilla_13} onClick={click_on_image} alt="casilla_13"/>
-                <img src={casilla_14} onClick={click_on_image} alt="casilla_14"/>
-                <img src={casilla_15} onClick={click_on_image} alt="casilla_15"/>
-                <img src={casilla_16} onClick={click_on_image} alt="casilla_16"/>
-                <img src={casilla_17} onClick={click_on_image} alt="casilla_17"/>
-                <img src={casilla_18} onClick={click_on_image} alt="casilla_18"/>
-                <img src={casilla_19_serpiente} onClick={click_on_image} alt="casilla_19_serpiente"/>
-                <img src={casilla_20} onClick={click_on_image} alt="casilla_20"/>
-                <img src={casilla_21} onClick={click_on_image} alt="casilla_21"/>
-                <img src={casilla_22} onClick={click_on_image} alt="casilla_22"/>
-                <img src={casilla_23} onClick={click_on_image} alt="casilla_23"/>
-                <img src={entrada_3} onClick={click_on_image} alt="entrada_3"/>
+                <Casillero id="16" imagen={entrada_2} width="86" height="60"/>
+                <Casillero id="17" imagen={casilla_6} width="43" height="60"/>
+                <Casillero id="18" imagen={casilla_7} width="43" height="60"/>
+                <Casillero id="19" imagen={casilla_8_serpiente} width="43" height="60"/>
+                <Casillero id="20" imagen={casilla_9} width="43" height="60"/>
+                <Casillero id="21" imagen={casilla_10} width="43" height="60"/>
+                <Casillero id="22" imagen={casilla_11_trampilla} width="60" height="60"/>
+                <Casillero id="23" imagen={casilla_12} width="50" height="60"/>
+                <Casillero id="24" imagen={casilla_13} width="50" height="60"/>
+                <Casillero id="25" imagen={casilla_14} width="50" height="60"/>
+                <Casillero id="26" imagen={casilla_15} width="50" height="60"/>
+                <Casillero id="27" imagen={casilla_16} width="50" height="60"/>
+                <Casillero id="28" imagen={casilla_17} width="50" height="60"/>
+                <Casillero id="29" imagen={casilla_18} width="60" height="60"/>
+                <Casillero id="30" imagen={casilla_19_serpiente} width="43" height="60"/>
+                <Casillero id="31" imagen={casilla_20} width="43" height="60"/>
+                <Casillero id="32" imagen={casilla_21} width="43" height="60"/>
+                <Casillero id="33" imagen={casilla_22} width="43" height="60"/>
+                <Casillero id="34" imagen={casilla_23} width="43" height="60"/>
+                <Casillero id="35" imagen={entrada_3} width="86" height="60"/>
             </div>
             
             <div className="todo">
-                <img src={vestibulo} onClick={click_on_image} alt="vestibulo"/>
+                <Casillero id="36" imagen={vestibulo} width="300" height="300"/>
                 <div className="todo1">
-                    <img src={casilla_29} onClick={click_on_image} alt="casilla_29"/>
-                    <img src={casilla_30} onClick={click_on_image} alt="casilla_30"/>  
-                    <img src={casilla_31} onClick={click_on_image} alt="casilla_31"/>
-                    <img src={casilla_32} onClick={click_on_image} alt="casilla_32"/>
-                    <img src={casilla_33} onClick={click_on_image} alt="casilla_33"/>
-                    <img src={casilla_34} onClick={click_on_image} alt="casilla_34"/>
+                    <Casillero id="37" imagen={casilla_29} width="60" height="50"/>
+                    <Casillero id="40" imagen={casilla_30} width="60" height="50"/>
+                    <Casillero id="42" imagen={casilla_31} width="60" height="50"/>
+                    <Casillero id="44" imagen={casilla_32} width="60" height="50"/>
+                    <Casillero id="46" imagen={casilla_33} width="60" height="50"/>
+                    <Casillero id="48" imagen={casilla_34} width="60" height="50" />
+                    
                 </div>
-                <div className="todo">
-                    <img src={misterio} onClick={click_on_image} alt="misterio"/>
+                <div>
+                    <Casillero id="0" imagen={misterio} width="300" height="300"/>
                 </div>
                 <div className="todo1">
-                    <img src={casilla_35} onClick={click_on_image} alt="casilla_35"/>
-                    <img src={casilla_36} onClick={click_on_image} alt="casilla_36"/>
-                    <img src={casilla_37} onClick={click_on_image} alt="casilla_37"/>
-                    <img src={casilla_38} onClick={click_on_image} alt="casilla_38"/>
-                    <img src={casilla_39} onClick={click_on_image} alt="casilla_39"/>
-                    <img src={casilla_40} onClick={click_on_image} alt="casilla_40"/> 
+                    <Casillero id="38" imagen={casilla_35} width="60" height="50"/>
+                    <Casillero id="41" imagen={casilla_36} width="60" height="50"/>
+                    <Casillero id="43" imagen={casilla_37} width="60" height="50"/>
+                    <Casillero id="45" imagen={casilla_38} width="60" height="50"/>
+                    <Casillero id="47" imagen={casilla_39} width="60" height="50"/>
+                    <Casillero id="49" imagen={casilla_40} width="60" height="50" />
                 </div>
-                <div className="todo">
-                    <img src={panteon} onClick={click_on_image} alt="panteon"/>
+                <div>
+                    <Casillero id="39" imagen={panteon} width="300" height="300"/>
                 </div>                
             </div>
 
             <div className="todo">
-                <img src={entrada_5} onClick={click_on_image} alt="entrada_5"/>
-                <img src={casilla_41} onClick={click_on_image} alt="casilla_41"/>
-                <img src={casilla_42} onClick={click_on_image} alt="casilla_42"/>
-                <img src={casilla_43} onClick={click_on_image} alt="casilla_43"/>
-                <img src={casilla_44_araña} onClick={click_on_image} alt="casilla_44_araña"/>
-                <img src={casilla_45} onClick={click_on_image} alt="casilla_45"/>
-                <img src={casilla_46_trampilla} onClick={click_on_image} alt="casilla_46_trampilla"/>
-                <img src={casilla_47} onClick={click_on_image} alt="casilla_47"/>
-                <img src={casilla_48} onClick={click_on_image} alt="casilla_48"/>
-                <img src={casilla_49} onClick={click_on_image} alt="casilla_49"/>
-                <img src={casilla_50} onClick={click_on_image} alt="casilla_50"/>
-                <img src={casilla_51} onClick={click_on_image} alt="casilla_51"/>
-                <img src={casilla_52} onClick={click_on_image} alt="casilla_52"/>
-                <img src={casilla_53_trampilla} onClick={click_on_image} alt="casilla_53_trampilla"/>
-                <img src={casilla_54} onClick={click_on_image} alt="casilla_54"/>
-                <img src={casilla_55_araña} onClick={click_on_image} alt="casilla_55_araña"/>
-                <img src={casilla_56} onClick={click_on_image} alt="casilla_56"/>
-                <img src={casilla_57} onClick={click_on_image} alt="casilla_57"/>
-                <img src={casilla_58} alt="casilla_58"/>
-                <img src={entrada_6} onClick={click_on_image} alt="entrada_6"/>
+                <Casillero id="50" imagen={entrada_5} width="86" height="60"/>
+                <Casillero id="51" imagen={casilla_41} width="43" height="60"/>
+                <Casillero id="52" imagen={casilla_42} width="43" height="60"/>
+                <Casillero id="53" imagen={casilla_43} width="43" height="60"/>
+                <Casillero id="54" imagen={casilla_44_araña} width="43" height="60"/>
+                <Casillero id="55" imagen={casilla_45} width="43" height="60"/>
+                <Casillero id="56" imagen={casilla_46_trampilla} width="60" height="60"/>
+                <Casillero id="57" imagen={casilla_47} width="50" height="60"/>
+                <Casillero id="58" imagen={casilla_48} width="50" height="60"/>
+                <Casillero id="59" imagen={casilla_49} width="50" height="60"/>
+                <Casillero id="60" imagen={casilla_50} width="50" height="60"/>
+                <Casillero id="61" imagen={casilla_51} width="50" height="60"/>
+                <Casillero id="62" imagen={casilla_52} width="50" height="60"/>
+                <Casillero id="63" imagen={casilla_53_trampilla} width="60" height="60"/>
+                <Casillero id="64" imagen={casilla_54} width="43" height="60"/>
+                <Casillero id="65" imagen={casilla_55_araña} width="43" height="60"/>
+                <Casillero id="66" imagen={casilla_56} width="43" height="60"/>
+                <Casillero id="67" imagen={casilla_57} width="43" height="60"/>
+                <Casillero id="68" imagen={casilla_58} width="43" height="60"/>
+                <Casillero id="69" imagen={entrada_6 } width="86" height="60"/>
             </div>
+
             <div className="todo">
-                <img src={bodega} onClick={click_on_image} alt="bodega"/>
+                <Casillero id="70" imagen={bodega} width="300" height="300"/>
                 <div className="todo1">
-                    <img src={casilla_59_murcielago} onClick={click_on_image} alt="casilla_59_murcielago"/>  
-                    <img src={casilla_60} onClick={click_on_image} alt="casilla_60"/>
-                    <img src={casilla_61} onClick={click_on_image} alt="casilla_61"/>
-                    <img src={casilla_62} onClick={click_on_image} alt="casilla_62"/>
-                    <img src={casilla_63} onClick={click_on_image} alt="casilla_63"/>
-                    <img src={entrada_07} onClick={click_on_image} alt="entrada_07"/>
+                     <Casillero id="71" imagen={casilla_59_murcielago} width="60" height="43"/>
+                    <Casillero id="75" imagen={casilla_60} width="60" height="43"/>
+                    <Casillero id="77" imagen={casilla_61} width="60" height="43"/>
+                    <Casillero id="79" imagen={casilla_62} width="60" height="43"/>
+                    <Casillero id="81" imagen={casilla_63} width="60" height="43"/>
+                    <Casillero id="83" imagen={entrada_07} width="60" height="83"/>
                 </div>
-                <div className="todo">
-                    <img src={salon} onClick={click_on_image} alt="salon"/>
+                <div>
+                    <Casillero id="72" imagen={salon} width="300" height="300"/>
                 </div>    
                 <div className="todo1">
-                    <img src={casilla_64_escorpion} onClick={click_on_image} alt="casilla_64_escorpion"/>
-                    <img src={casilla_65} onClick={click_on_image} alt="casilla_65"/>
-                    <img src={casilla_66} onClick={click_on_image} alt="casilla_66"/>
-                    <img src={casilla_67} onClick={click_on_image} alt="casilla_67"/>
-                    <img src={casilla_68} onClick={click_on_image} alt="casilla_68"/>
-                    <img src={entrada_08} onClick={click_on_image} alt="entrada_08"/>
+                    <Casillero id="73" imagen={casilla_64_escorpion} width="60" height="43"/>
+                    <Casillero id="76" imagen={casilla_65} width="60" height="43"/>
+                    <Casillero id="78" imagen={casilla_66} width="60" height="43"/>
+                    <Casillero id="80" imagen={casilla_67} width="60" height="43"/>
+                    <Casillero id="82" imagen={casilla_68} width="60" height="43"/>
+                    <Casillero id="84" imagen={entrada_08} width="60" height="83"/>
                 </div>
-                <div className="todo">
-                    <img src={laboratorio} onClick={click_on_image} alt="laboratorio"/>
+                <div>
+                    <Casillero id="74" imagen={laboratorio} width="300" height="300"/>
                 </div> 
             </div>
+            </div>
+            <div>
+            <h1>Tu posición es: {posicion}</h1>
+            {text && <h1 >No te podes mover ahi</h1>}
+            </div>
+       
+
         </div>
+        
+        </>
+       
     )
 
 }
 
 export default Tablero;
 
-/*.fondo {
-    margin-left: auto;
-    margin-right: auto;
-    background-color: black;
-    height: 115vh;
-  }*/
+

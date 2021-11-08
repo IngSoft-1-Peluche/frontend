@@ -1,4 +1,4 @@
-import React, { useState, classList, useEffect} from 'react';
+import React, { useState, useEffect} from 'react';
 import './Tablero.css';
 import cochera from '../../assets/imagenes/cochera.jpg';
 import alcoba from '../../assets/imagenes/alcoba.jpg';
@@ -85,17 +85,18 @@ import casilla_66 from '../../assets/imagenes/casilla_66.jpg';
 import casilla_67 from '../../assets/imagenes/casilla_67.jpg';
 import casilla_68 from '../../assets/imagenes/casilla_68.jpg';
 import entrada_08 from '../../assets/imagenes/entrada_08.jpg';
+import BotonDado from '../Dado/BotonDado'
 
 const Tablero = () =>{
 
-    const [posicion,setPosicion]= useState(2)
-    const [text,setText]= useState(false)
-    const [mov,setMov]= useState([6,8,10,12,14,3,11,12,13,15])
+    const [posicion,setPosicion]= useState(1)
+    const [text,setText]= useState("")
+    const [mov,setMov]= useState([6,8,10,1,2])
 
     useEffect(() => {
         cambiar()
         console.log("efect")
-    }, [mov])
+    }, [mov, text])
 
     const cambiar = () => {
         mov.forEach(element => {
@@ -107,16 +108,17 @@ const Tablero = () =>{
     const click_on_image = (event) => {
         if (mov.find(element => element == event.target.id)) {
         setPosicion(event.target.id)
-        setText(false)
+        setText("Movimiento realizado")
         setMov([])
         }
-        else {}
+        else {setText("No te podes mover ahi")}
     }
 
     const Casillero = ({id,imagen,width,height}) =>{
+
         return(
         <div className="container" >
-        <img   src={imagen} id={id} onClick={click_on_image} alt="imagen" width={width} height={height}/>
+        <img  src={imagen} id={id} onClick={click_on_image} alt="imagen" width={width} height={height}/>
         {(posicion==id) && <div className="centered dot"></div>}
         </div>
         )
@@ -253,7 +255,8 @@ const Tablero = () =>{
             </div>
             <div>
             <h1>Tu posición es: {posicion}</h1>
-            {text && <h1 >No te podes mover ahi</h1>}
+             <h1 >{text}</h1>
+             <BotonDado />
             </div>
        
 

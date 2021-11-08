@@ -32,7 +32,7 @@ const Sospechar = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <label htmlFor="nombre_victima">Elegí una víctima:</label>
+      <label htmlFor="carta_victima">Elegí una víctima:</label>
       <select {...register("carta_victima")} >
         <option value="Conde">Conde</option>
         <option value="Condesa">Condesa</option>
@@ -42,7 +42,7 @@ const Sospechar = () => {
         <option value="Jardinero">Jardinero</option>
       </select>
       <div>
-      <label htmlFor="nombre_monstruo">Elegí una monstruo:</label>
+      <label htmlFor="carta_monstruo">Elegí una monstruo:</label>
       <select {...register("carta_monstruo")} >
         <option value="Drácula">Drácula</option>
         <option value="Frankestein">Frankestein</option>
@@ -57,8 +57,6 @@ const Sospechar = () => {
         <h1>Usted eligio las cartas: {cartasSos.carta_monstruo} y {cartasSos.carta_victima}</h1>
         ):(<h1>Elija</h1>)}
     </form>
-    
-   
    
   );
 }

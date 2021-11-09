@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import BotonDado from '../Dado/BotonDado';
+import CartasRepartidas from '../MostrarCartas/CartasRepartidas';
+import { Sospechar } from '../Sospecha';
 import Tablero from '../Tablero/Tablero';
 
 const Juego = (params) => {
@@ -13,6 +15,8 @@ const Juego = (params) => {
     const [turno, setTurno] = useState(true);
     const [pasarTurno, setPasar] = useState(false);
     const [tirado, setTirado] = useState("")
+
+    const [cartasJu, setCartasJu] = useState([null]);
 
     ws.onmessage = function(event) {
         const prueba = JSON.parse(event.data)
@@ -40,6 +44,16 @@ const Juego = (params) => {
             case 'error_imp':
                 setTurno(false)
             return; 
+            case 'no_recinto':
+                console.log("no esta en recinto")
+            return;
+            case 'mostrar_cartas':
+                const datos = prueba.data.cartas
+                setCartasJu(datos)
+            return;
+            default:
+                console.log("default")
+            return;
         }      
     }  
 
@@ -67,8 +81,14 @@ const Juego = (params) => {
             <Tablero ws={ws} posicion={posicion} casillasDisponibles={casillasDisponibles} />
             </div>            
             <div> 
-            <BotonDado ws={ws} id_jugador={usuario.id_jugador} turno={turno} pasarTurno={pasarTurno} tirado={tirado} tirar={tirarDado} terminar={terminarTurno}/>
+            <BotonDado ws={ws} id_jugador={usuario.id_jugador} 
+                turno={turno} pasarTurno={pasarTurno} tirado={tirado} tirar={tirarDado} terminar={terminarTurno}/>
+            <Sospechar ws={ws} />
+            
             </div>
+            </div>
+            <div>
+               <CartasRepartidas ws={ws} cartas={cartasJu}/>
             </div>
         </>
     )

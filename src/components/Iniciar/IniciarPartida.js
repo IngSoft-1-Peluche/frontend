@@ -13,7 +13,7 @@ const IniciarPartida = (parametros) => {
       id_jugador:parseInt(parametros.id_J),
       id_partida:parseInt(parametros.id)})
      })
-     history.push(`/cartas`);
+     history.push(`/juego`);
     }
 
   return (

@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import './Responder.css'
 
-const ResponderSospecha = () => {
+const ResponderSospecha = (params) => {
 
-  var jugador = JSON.parse(sessionStorage.getItem('logueado'));
+  
+
+  const ws = params.ws
 
   const [eleg, setEleg] = useState({ nombre: '', elegido: false }); 
 
@@ -17,9 +19,6 @@ const ResponderSospecha = () => {
 
   const [responder, setResponder] = useState(false)
 
-  var socket = useState(new WebSocket(`ws://localhost:8000/ws/${jugador.id_jugador}`));
-
-  const [ws, setWs] = setWs(socket)
 
   console.log(sospecha)
 

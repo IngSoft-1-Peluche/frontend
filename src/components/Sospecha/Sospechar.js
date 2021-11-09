@@ -4,31 +4,29 @@ import 'bootstrap/dist/css/bootstrap.css';
 
 
 
-const Sospechar = () => {
+const Sospechar = (params) => {
 
-  var jugador = JSON.parse(sessionStorage.getItem('logueado'));
-
-  const [ws, setWs] = useState(new WebSocket(`ws://localhost:8000/ws/${jugador.id_jugador}`));
 
   const [cartasSos, SetCartasSos] = useState([null])
 
   const [elegidas, SetElegidas] = useState(false)
+
+  const ws = params.ws
   
   const {
     register,
     handleSubmit,
   } = useForm();
 
-
-  const onSubmit = async (info) => {
+  const onSubmit = (info) => {
     
     SetCartasSos(info)
     const data = JSON.stringify({action:'sospechan', data: info})
+    console.log(data)
+    SetElegidas(true)
     ws.send(data)
     console.log(data)
-    SetElegidas(true) 
   }
-
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -42,7 +40,7 @@ const Sospechar = () => {
         <option value="Jardinero">Jardinero</option>
       </select>
       <div>
-      <label htmlFor="carta_monstruo">Elegí una monstruo:</label>
+      <label htmlFor="carta_monstruo">Elegí un monstruo:</label>
       <select {...register("carta_monstruo")} >
         <option value="Drácula">Drácula</option>
         <option value="Frankestein">Frankestein</option>
@@ -54,8 +52,8 @@ const Sospechar = () => {
       </div>
       <input type="submit" value="Realizar sospecha" />
       {elegidas ? (
-        <h1>Usted eligio las cartas: {cartasSos.carta_monstruo} y {cartasSos.carta_victima}</h1>
-        ):(<h1>Elija</h1>)}
+        <h4>Usted eligio las cartas: {cartasSos.carta_monstruo} y {cartasSos.carta_victima}</h4>
+        ):(<h4>Elija</h4>)}
     </form>
    
   );

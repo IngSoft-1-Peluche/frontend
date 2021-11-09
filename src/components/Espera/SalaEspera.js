@@ -11,6 +11,8 @@ const SalaEspera = () => {
     const { id_p }= useParams();
 
     var logueado = JSON.parse(sessionStorage.getItem('logueado'));
+
+    const [ws ,setWs] = useState(new WebSocket(`ws://localhost:8000/espera/${logueado.id_jugador}`))
        
     const datosPartidasDefault = {id_partida: null, nombre: '', jugadores: [{
           "id_jugador": null,
@@ -19,6 +21,8 @@ const SalaEspera = () => {
           "en_turno": true
         }]
     };
+
+    
       
     const [partida, setPartida] = useState(datosPartidasDefault);
    
@@ -31,7 +35,16 @@ const SalaEspera = () => {
 
     useEffect(() => {
       obtenerDatos();
-    }, []);
+    },[]);
+
+    ws.onmessage = function(event) {
+        const prueba = JSON.parse(event.data)
+        switch(prueba.action) {
+            case 'prueba':
+                console.log("funco!!!")          
+            return;
+        }
+    }
 
     return (
 
@@ -49,7 +62,12 @@ const SalaEspera = () => {
                 <tr>
 
                     <th scope="col">Apodo</th>
-                    <th></th>
+
+                    {partida.jugadores.length < 2 && logueado.creador ? ( 
+                        <th>Esperando que se unan mas jugadores</th>
+                    ) : (  
+                        <th>Ya puede iniciar la partida</th>  
+                    )}
                     
                 </tr>
             </thead>
@@ -65,7 +83,7 @@ const SalaEspera = () => {
 
                             ):(
 
-                                <td>Por favor, espere...</td>
+                                <td></td>
 
                             )}
                         

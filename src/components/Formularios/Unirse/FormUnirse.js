@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState}from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import { useForm } from 'react-hook-form';
 import { useParams, useHistory } from 'react-router-dom';
@@ -15,28 +15,26 @@ const FormUnirse = () => {
     const history= useHistory();
 
 
-    const onSubmit = async (usuario, event) => {
 
-        usuario.id_partida= parseInt(idPart)
-        event.preventDefault();
-        event.target.reset();
+    const onSubmit = async (data) => {
+
         
-        const requestOptions = {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json; charset=UTF-8' },
-            body: JSON.stringify(usuario)
+        const enviar ={
+            id_partida: parseInt(idPart),
+            apodo: data.apodo
         }
+       
+        const respuesta = await fetch("http://localhost:8000/partidas/", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(enviar)}).then(respuesta => respuesta.json());
 
-        const respuesta = await fetch(`http://localhost:8000/partidas/${idPart}?apodo=${usuario.apodo}`, requestOptions)
-        .then(response => response.json());
-        
         window.sessionStorage.setItem('logueado', JSON.stringify({
                                     apodo: respuesta.apodo, 
                                     id_jugador: respuesta.id_jugador, 
                                     creador: false}))
 
         history.push(`/salaEsp/${respuesta.id_partida}`);
-
     }
 
     return(

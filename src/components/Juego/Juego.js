@@ -52,6 +52,14 @@ const Juego = (params) => {
                 const datos = prueba.data.cartas
                 setCartasJu(datos)
             return;
+            case 'acuse':
+                const resultado_acuse = prueba.data.message
+                if (resultado_acuse == "ganaste"){
+                    alert("Ganaste!!!") 
+                }
+                else if(resultado_acuse == "perdiste"){
+                    alert("Perdiste :(") 
+                }
             default:
                 console.log("default")
             return;

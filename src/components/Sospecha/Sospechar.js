@@ -42,7 +42,7 @@ const Sospechar = (params) => {
       <div>
       <label htmlFor="carta_monstruo">Elegí un monstruo:</label>
       <select {...register("carta_monstruo")} >
-        <option value="Drácula">Drácula</option>
+        <option value="Dracula">Drácula</option>
         <option value="Frankestein">Frankestein</option>
         <option value="Hombre lobo">Hombre lobo</option>
         <option value="Fantasma">Fantasma</option>

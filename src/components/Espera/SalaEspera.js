@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'react-router';
 import { useHistory } from 'react-router-dom';
 
@@ -29,6 +29,7 @@ const SalaEspera = () => {
                 setJugadores(info.data.jugador)         
             return;
         }
+
         switch(info.action){
             case 'iniciar':
                 history.push("/juego")
@@ -39,7 +40,7 @@ const SalaEspera = () => {
 
         <div>
             <h2 className="bg-dark text-white">
-                Sala de espera de la partida {partida.nombre} 
+                Sala de espera de la partida {jugadores.nombre_partida} 
             </h2>
             <h2 className="bg-dark text-white">
                 Jugador : {logueado.apodo}
@@ -69,7 +70,7 @@ const SalaEspera = () => {
                     jugadores.map((jugador) => (
                         <tr key={jugador.id_jugador} className = "table-secondary">                   
                             
-                            <td>{jugador.apodo}</td>
+                            <td>{jugador.nombre_jugador}</td>
                             {logueado.creador && jugadores.length > 1
                              && (jugador.id_jugador === logueado.id_jugador) ? (
 

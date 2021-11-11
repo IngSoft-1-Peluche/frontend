@@ -15,14 +15,15 @@ const SalaEspera = () => {
 
     var logueado = JSON.parse(sessionStorage.getItem('logueado'));
 
-    const ws = new WebSocket(`ws://localhost:8000/espera/${logueado.id_jugador}`)
+    const ws = new WebSocket(`ws://localhost:8000/ws/${logueado.id_jugador}`)
        
 
-    const [jugadores, setJugadores] = useState()  //aca voy almacenando los nuevos jugadores que se unen
+    const [jugadores, setJugadores] = useState()  
 
 
     ws.onmessage = function(event) {
         const info = JSON.parse(event.data)
+
         switch(info.action) {
             case 'nuevo_jugador':
                 setJugadores(info.data.jugador)         
@@ -31,7 +32,6 @@ const SalaEspera = () => {
         switch(info.action){
             case 'iniciar':
                 history.push("/juego")
-
         }
     }
 

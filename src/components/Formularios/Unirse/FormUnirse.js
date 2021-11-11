@@ -1,4 +1,4 @@
-import React, {useState}from 'react';
+import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import { useForm } from 'react-hook-form';
 import { useParams, useHistory } from 'react-router-dom';
@@ -11,10 +11,7 @@ const FormUnirse = () => {
 
     const {register, handleSubmit, formState:{errors}} = useForm();
 
-
     const history= useHistory();
-
-
 
     const onSubmit = async (data) => {
 

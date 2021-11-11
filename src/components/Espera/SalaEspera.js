@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
+import { useHistory } from 'react-router-dom';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import IniciarPartida from '../Iniciar/IniciarPartida';
@@ -10,39 +11,27 @@ const SalaEspera = () => {
 
     const { id_p }= useParams();
 
+    const history= useHistory();
+
     var logueado = JSON.parse(sessionStorage.getItem('logueado'));
 
-    const [ws ,setWs] = useState(new WebSocket(`ws://localhost:8000/espera/${logueado.id_jugador}`))
+    const ws = new WebSocket(`ws://localhost:8000/espera/${logueado.id_jugador}`)
        
-    const datosPartidasDefault = {id_partida: null, nombre: '', jugadores: [{
-          "id_jugador": null,
-          "apodo": "",
-          "orden": null,
-          "en_turno": true
-        }]
-    };
 
-    
-      
-    const [partida, setPartida] = useState(datosPartidasDefault);
-   
-    const obtenerDatos = async () => {
-        const data = await fetch(`http://localhost:8000/partidas/${id_p}`)
-        const jugador = await data.json()
-       
-        setPartida(jugador)       
-    }
+    const [jugadores, setJugadores] = useState()  //aca voy almacenando los nuevos jugadores que se unen
 
-    useEffect(() => {
-      obtenerDatos();
-    },[]);
 
     ws.onmessage = function(event) {
-        const prueba = JSON.parse(event.data)
-        switch(prueba.action) {
-            case 'prueba':
-                console.log("funco!!!")          
+        const info = JSON.parse(event.data)
+        switch(info.action) {
+            case 'nuevo_jugador':
+                setJugadores(info.data.jugador)         
             return;
+        }
+        switch(info.action){
+            case 'iniciar':
+                history.push("/juego")
+
         }
     }
 
@@ -63,23 +52,28 @@ const SalaEspera = () => {
 
                     <th scope="col">Apodo</th>
 
-                    {partida.jugadores.length < 2 && logueado.creador ? ( 
+                    {jugadores.length < 2 && logueado.creador ? ( 
                         <th>Esperando que se unan mas jugadores</th>
                     ) : (  
-                        <th>Ya puede iniciar la partida</th>  
+                        <th></th>  
                     )}
-                    
+                    {!logueado.creador} ? (
+                        <th>Espere a que se inicie la partida</th>
+                    ):(
+                        <th></th>
+                    )
                 </tr>
             </thead>
             <tbody>
-                {partida.jugadores.length > 0 ? (
-                    partida.jugadores.map((jugador) => (
+                {jugadores.length > 0 ? (
+                    jugadores.map((jugador) => (
                         <tr key={jugador.id_jugador} className = "table-secondary">                   
                             
                             <td>{jugador.apodo}</td>
-                            {logueado.creador && partida.jugadores.length > 1
+                            {logueado.creador && jugadores.length > 1
                              && (jugador.id_jugador === logueado.id_jugador) ? (
-                                <td><IniciarPartida id={partida.id_partida} id_J={logueado.id_jugador} /></td>
+
+                                <td><IniciarPartida id={id_p} id_J={logueado.id_jugador} ws={ws}/></td> //mandar el ws como arg y de ahi enviale que inicie la partida??
 
                             ):(
 

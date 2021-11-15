@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Acusar from '../Acusar/Acusar';
 import BotonDado from '../Dado/BotonDado';
 import CartasRepartidas from '../MostrarCartas/CartasRepartidas';
 import { Sospechar } from '../Sospecha';
@@ -51,6 +52,14 @@ const Juego = (params) => {
                 const datos = prueba.data.cartas
                 setCartasJu(datos)
             return;
+            case 'acuse':
+                const resultado_acuse = prueba.data.message
+                if (resultado_acuse == "ganaste"){
+                    alert("Ganaste!!!") 
+                }
+                else if(resultado_acuse == "perdiste"){
+                    alert("Perdiste :(") 
+                }
             default:
                 console.log("default")
             return;
@@ -84,7 +93,7 @@ const Juego = (params) => {
             <BotonDado ws={ws} id_jugador={usuario.id_jugador} 
                 turno={turno} pasarTurno={pasarTurno} tirado={tirado} tirar={tirarDado} terminar={terminarTurno}/>
             <Sospechar ws={ws} />
-            
+            <Acusar ws={ws} />
             </div>
             </div>
             <div>

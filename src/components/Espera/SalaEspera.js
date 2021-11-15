@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import 'bootstrap/dist/css/bootstrap.css';
-import IniciarPartida from '../Iniciar/IniciarPartida';
-
 
 
 const SalaEspera = (params) => {
@@ -24,11 +22,6 @@ const SalaEspera = (params) => {
 
    
     const [partida, setPartida] = useState(partidaDefault); 
-
-
-    //jugador_conectado: "alguien", id_partida: 1, nombre_partida: "nueva", jugadores: []
-
-
    
 
         ws.onmessage = function(event) {
@@ -74,13 +67,7 @@ const SalaEspera = (params) => {
                 Jugador : {logueado.apodo}                
                 
             </h2>
-
-            <>
-            
-            
-            </>
           
-        
             <table className="table table-striped table-dark">
         
             <thead className="thead-dark">

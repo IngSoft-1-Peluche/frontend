@@ -1,9 +1,14 @@
-    import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+
+import { useHistory } from 'react-router-dom';
 
 import 'bootstrap/dist/css/bootstrap.css';
 
 
 const TablaDisp = () => {
+
+    const history= useHistory();
 
     const datosPartidasDefault = [ 
         {id_partida: '', nombre_partida: '', cantidad_jugadores: ''}     
@@ -15,12 +20,18 @@ const TablaDisp = () => {
        const datos = await fetch('http://localhost:8000/partidas') 
        const partidas = await datos.json()
        setPartida(partidas)
-       console.log(partidas)
     }
+    
 
     useEffect(() => {
+        
         obtenerPartidas()
     }, [])
+
+
+    const recargar = () => {
+        window.location.reload()
+    }
 
 
     return (
@@ -31,7 +42,9 @@ const TablaDisp = () => {
             <tr>
                 <th scope="col">Partidas</th>
                 <th scope="col">Cantidad de jugadores</th>
-                <th></th>
+                <th>
+                    <button onClick={recargar} >Actualizar</button>
+                </th>
                 
             </tr>
         </thead>
@@ -42,9 +55,9 @@ const TablaDisp = () => {
                         <td>{partida.nombre_partida}</td>
                         <td>{partida.cantidad_jugadores}</td>
                         <td>
-                            <a className= "btn btn-dark"
-                             href={`/FormU/${partida.id_partida}/${partida.nombre_partida}`}>Unirse
-                            </a>  
+                            <Link className= "btn btn-dark"
+                             to={`/FormU/${partida.id_partida}/${partida.nombre_partida}`}>Unirse
+                            </Link>  
                         </td>
                     </tr>
                     )

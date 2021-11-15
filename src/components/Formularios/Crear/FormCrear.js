@@ -2,9 +2,14 @@ import React from 'react';
 import { useForm } from "react-hook-form";
 import 'bootstrap/dist/css/bootstrap.css';
 
+import { useHistory } from 'react-router-dom';
 
-const FormCrear = (login) => {
+
+const FormCrear = () => {
+
   
+    const history= useHistory();
+
     const {
       register,
       handleSubmit,
@@ -12,12 +17,20 @@ const FormCrear = (login) => {
     } = useForm();
   
     const onSubmit = async (data) => {
-      console.log(data);
-      const respuesta = await fetch("http://localhost:8000/partidas/", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data)}).then(respuesta => respuesta.json())
-    };
+     
+    const respuesta = await fetch("http://localhost:8000/partidas/", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data)}).then(respuesta => respuesta.json());
+
+    window.sessionStorage.setItem('logueado', JSON.stringify({
+                                apodo: respuesta.apodo, 
+                                id_jugador: respuesta.id_jugador, 
+                                creador: true}))
+
+    history.push(`/salaEsp/${respuesta.id_partida}`);
+
+};
     
     return (
       <form onSubmit={handleSubmit(onSubmit)}>      
@@ -33,6 +46,7 @@ const FormCrear = (login) => {
         </div>    
         <label htmlFor="apodo">Apodo:</label>
         <input
+          data-testid = "casilla input"
           {...register("apodo", {
             required: "Apodo obligatorio",
             maxLength: { value: 20, message: "20 caracteres máximo" }
@@ -44,6 +58,6 @@ const FormCrear = (login) => {
         <input type="submit" value="Crear partida"  />
       </form>
     );
-  }
+}
 
-  export default FormCrear;
+export default FormCrear;

@@ -1,19 +1,20 @@
-import React, { useState } from 'react';
-import { useParams } from 'react-router';
+import React from 'react';
+import { useHistory } from 'react-router-dom';
 
-const IniciarPartida = () => {
 
-  const {id,id_J}=useParams();
+const IniciarPartida = (parametros) => {
 
-  const iniciar = async () => {
-    const data = await fetch(`http://localhost:8000/partidas/${id}?id_jugador=${id_J}` ,{
+  const history= useHistory();
+
+   const iniciar = async () => {
+      await fetch(`http://localhost:8000/partidas/${parametros.id}?id_jugador=${parametros.id_J}` ,{
       method : 'PATCH',
       body: JSON.stringify({
-      id_jugador:parseInt(id_J),
-      id_partida:parseInt(id)
-      }) 
-    })
-  }
+      id_jugador:parseInt(parametros.id_J),
+      id_partida:parseInt(parametros.id)})
+     })
+     history.push(`/juego`);
+    }
 
   return (
     <div>
@@ -21,6 +22,7 @@ const IniciarPartida = () => {
         Iniciar partida
       </button>
     </div>
+    
   );
 }
 

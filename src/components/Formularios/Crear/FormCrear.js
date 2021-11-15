@@ -28,7 +28,7 @@ const FormCrear = () => {
                                 id_jugador: respuesta.id_jugador, 
                                 creador: true}))
 
-    history.push(`/salaEsp/${respuesta.id_partida}`);
+    history.push("/salaEsp");
 
 };
     

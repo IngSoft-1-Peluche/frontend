@@ -1,22 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import Acusar from '../Acusar/Acusar';
 import BotonDado from '../Dado/BotonDado';
+import ListarJugadores from '../Listar/ListarJugadores';
 import CartasRepartidas from '../MostrarCartas/CartasRepartidas';
 import { Sospechar } from '../Sospecha';
 import Tablero from '../Tablero/Tablero';
+import ApodoJugadores from '../Tablero/apodo';
 
 const Juego = (params) => {
 
     const ws= params.ws
 
     var usuario = JSON.parse(sessionStorage.getItem('logueado'));
-    
-    const [posicion,setPosicion] = useState(2)
+   
+    const [estado,setEstado] = useState([])
+    const [miPosicion,setMiPosicion] = useState(0)
     const [casillasDisponibles,setCasillasDisponibles] = useState([])
-    const [turno, setTurno] = useState(true);
+    const [turno, setTurno] = useState(false);
     const [pasarTurno, setPasar] = useState(false);
     const [tirado, setTirado] = useState("")
-
     const [cartasJu, setCartasJu] = useState([null]);
 
     ws.onmessage = function(event) {
@@ -30,17 +32,14 @@ const Juego = (params) => {
                 setTurno(true)
             return;
             case 'tire_dado':
-                setPasar(true)
+                
                 const respuesta = prueba.data.casillas_a_mover
-                console.log(respuesta)
                 setCasillasDisponibles(respuesta)
-                console.log(respuesta)
             return;
             case 'me_movi':
-                console.log(prueba.data.posicion_final)
-                setPosicion(prueba.data.posicion_final)
                 setCasillasDisponibles([])
-                console.log(posicion)
+                setPasar(true)
+                setMiPosicion(prueba.data.posicion_final)
             return;
             case 'error_imp':
                 setTurno(false)
@@ -52,6 +51,19 @@ const Juego = (params) => {
                 const datos = prueba.data.cartas
                 setCartasJu(datos)
             return;
+
+            case 'estado_jugadores':
+                setEstado(prueba.data.lista_jugadores)
+                setTurno(prueba.data.lista_jugadores.find(el=> el.apodo ==usuario.apodo).en_turno)
+            return;
+            case 'se_movio':
+                setEstado(prueba.data.lista_jugadores)
+            return;
+            case 'terminaron_turno':
+                (prueba.data.nombre_jugador==usuario.apodo) ? setTurno(true) : setTurno(false);
+                setEstado(prueba.data.lista_jugadores)
+            return;
+
             case 'acuse':
                 const resultado_acuse = prueba.data.message
                 if (resultado_acuse == "ganaste"){
@@ -60,6 +72,7 @@ const Juego = (params) => {
                 else if(resultado_acuse == "perdiste"){
                     alert("Perdiste :(") 
                 }
+
             default:
                 console.log("default")
             return;
@@ -81,23 +94,31 @@ const Juego = (params) => {
         event.preventDefault()
     }
 
+    const permisoSospechar = () => {
+        return (pasarTurno && (miPosicion ===1 || miPosicion ===3 ||miPosicion ===5 ||miPosicion ==36 ||miPosicion ===39 ||miPosicion ===70 ||miPosicion ===72 || miPosicion ===74 )) 
+    }
     
 
     return (
         <>  
             <div style={{display:"flex",flexDirection:"row"}}>
             <div>
-            <Tablero ws={ws} posicion={posicion} casillasDisponibles={casillasDisponibles} />
+            <Tablero ws={ws} estado={estado} casillasDisponibles={casillasDisponibles} />
             </div>            
             <div> 
             <BotonDado ws={ws} id_jugador={usuario.id_jugador} 
                 turno={turno} pasarTurno={pasarTurno} tirado={tirado} tirar={tirarDado} terminar={terminarTurno}/>
-            <Sospechar ws={ws} />
+
+            {permisoSospechar()  && <Sospechar ws={ws}/>}
+            <ApodoJugadores estado={estado}/>
+
+           
             <Acusar ws={ws} />
+
             </div>
             </div>
             <div>
-               <CartasRepartidas ws={ws} cartas={cartasJu}/>
+               <CartasRepartidas cartas={cartasJu}/>
             </div>
         </>
     )

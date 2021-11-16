@@ -89,15 +89,22 @@ import entrada_08 from '../../assets/imagenes/entrada_08.jpg';
 
 const Tablero = (params) => {
 
-    const [text, setText] = useState("")
-
     var usuario = JSON.parse(sessionStorage.getItem('logueado'));
 
     useEffect(() => {
         cambiar()
     })
+    
+    const lista = params.estado
 
+    const EstadoJugadores = (id) => {
+        return(
+        lista.map(jugador => (
+            (jugador.posicion) == id && <div className="dot" key={jugador.apodo} style={{ backgroundColor: jugador.color }}></div> 
+        )))
+    }
 
+    
     const cambiar = () => {
         params.casillasDisponibles.forEach(element => {
             var a = document.getElementById(element);
@@ -107,10 +114,8 @@ const Tablero = (params) => {
 
     const click_on_image = (event) => {
         if (params.casillasDisponibles.find(element => element == event.target.id)) {
-            console.log(1)
-            const data = JSON.stringify({action: 'mover_jugador', data: { nueva_posicion: parseInt(event.target.id)}})
+            const data = JSON.stringify({ action: 'mover_jugador', data: { nueva_posicion: parseInt(event.target.id) } })
             params.ws.send(data)
-            console.log(2)
             event.preventDefault()
         }
     }
@@ -119,9 +124,9 @@ const Tablero = (params) => {
 
         return (
             <div className="container" >
-                <img src={imagen} id={id} onClick={click_on_image} alt="imagen" width={width} height={height} />
+                <img src={imagen} id={id} onClick={click_on_image} alt="imagen" width={width * 0.70} height={height * 0.70} />
                 <div className="centered dots">
-                {(params.posicion == id) && <div className="dot" style={{backgroundColor: "red"}}></div>}
+                    {EstadoJugadores(id)}
                 </div>
             </div>
         )
@@ -130,8 +135,7 @@ const Tablero = (params) => {
     return (
         <>
             <div className="todo1 ">
-                <h2>{usuario.apodo} tu posición es: {params.posicion}</h2>
-                <div className="fondo">
+                <div className="fondo" >
                     <div className="todo">
                         <Casillero id="1" imagen={cochera} width="300" height="300" />
                         <div className="todo1">
@@ -257,13 +261,6 @@ const Tablero = (params) => {
                         </div>
                     </div>
                 </div>
-                <div>
-                    
-                    <p >{text}</p>
-
-                </div>
-
-
             </div>
 
         </>

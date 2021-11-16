@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Acusar from '../Acusar/Acusar';
 import BotonDado from '../Dado/BotonDado';
 import ListarJugadores from '../Listar/ListarJugadores';
 import CartasRepartidas from '../MostrarCartas/CartasRepartidas';
@@ -50,6 +51,7 @@ const Juego = (params) => {
                 const datos = prueba.data.cartas
                 setCartasJu(datos)
             return;
+
             case 'estado_jugadores':
                 setEstado(prueba.data.lista_jugadores)
                 setTurno(prueba.data.lista_jugadores.find(el=> el.apodo ==usuario.apodo).en_turno)
@@ -61,6 +63,16 @@ const Juego = (params) => {
                 (prueba.data.nombre_jugador==usuario.apodo) ? setTurno(true) : setTurno(false);
                 setEstado(prueba.data.lista_jugadores)
             return;
+
+            case 'acuse':
+                const resultado_acuse = prueba.data.message
+                if (resultado_acuse == "ganaste"){
+                    alert("Ganaste!!!") 
+                }
+                else if(resultado_acuse == "perdiste"){
+                    alert("Perdiste :(") 
+                }
+
             default:
                 console.log("default")
             return;
@@ -96,8 +108,13 @@ const Juego = (params) => {
             <div> 
             <BotonDado ws={ws} id_jugador={usuario.id_jugador} 
                 turno={turno} pasarTurno={pasarTurno} tirado={tirado} tirar={tirarDado} terminar={terminarTurno}/>
+
             {permisoSospechar()  && <Sospechar ws={ws}/>}
             <ApodoJugadores estado={estado}/>
+
+           
+            <Acusar ws={ws} />
+
             </div>
             </div>
             <div>

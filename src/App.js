@@ -8,13 +8,9 @@ import ListarJugadores from './components/Listar/ListarJugadores';
 import PagInicio from './components/Inicio/PagInicio'
 import SalaEspera from './components/Espera/SalaEspera';
 import StoreProvider from './store/StoreProvider';
-
-import Tablero from './components/Tablero/Tablero'
 import Home from './components/Juego/Home'
-
-import CartasRepartidas from './components/MostrarCartas/CartasRepartidas';
-
 import { Responder, Sospechar } from './components/Sospecha';
+import PreSala from './components/Espera/PreSala';
 
 
 
@@ -28,17 +24,12 @@ function App() {
                         <Route exact path="/partidasDis" component = { TablaDis }/>
                         <Route exact path="/FormCrear" component = { FormCrear }/>
                         <Route exact path="/FormU/:idPart/:nomPart" component = { FormUnirse }/>
-                        <Route exact path="/salaEsp/:id_p" component = { SalaEspera }/>
-                        <Route exact path="/partidas/:id" component = { ListarJugadores }/>
+                        <Route exact path="/salaEsp" component = { PreSala }/>
 
-                        <Route exact path="/tablero" component = { Tablero }/>
-                        <Route exact path="/juego" component = { Home }/>
-                        <Route exact path="/cartas" component = { CartasRepartidas }/>
-
+                        <Route exact path="/juego" component = { Home }/>                      
 
                         <Route exact path="/sospechar" component = { Sospechar }/>
                         <Route exact path="/responder" component = { Responder }/>
-
 
                         <Route exact path="/" component = { PagInicio }/>
                         <Route path="*">{<h1>404 Pagina no encontrada</h1>}</Route>

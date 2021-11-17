@@ -22,10 +22,8 @@ const Sospechar = (params) => {
     
     SetCartasSos(info)
     const data = JSON.stringify({action:'sospechan', data: info})
-    console.log(data)
     SetElegidas(true)
     ws.send(data)
-    console.log(data)
   }
 
   return (

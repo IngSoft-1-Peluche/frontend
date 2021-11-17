@@ -91,17 +91,13 @@ const Juego = (params) => {
                 setSospecha(datos_sospecha) 
                 setSospechaEnCurso(true) 
             return;
-
-            case 'no_carta':   
-                setResponder(false)  
-            return;       
-
             case 'muestra':
                 setResponder(true)
             return;  
             case 'sospecha_respondida':
                 setSospecha(datosPartidasDefault)
                 setSospechaEnCurso(false) 
+                setResponder(false)
             return;
             default:
                 console.log("default")
@@ -145,7 +141,7 @@ const Juego = (params) => {
                 {permisoSospechar()  && <Sospechar ws={ws}/>}
                 {permisoAcusar()  && <Acusar ws={ws}/>}
                 <ApodoJugadores estado={estado}/>
-                <ResponderSospecha ws={ws} sospecha={sospecha} sospecha_en_curso={sospecha_en_curso} responder={responder}/>
+                <ResponderSospecha ws={ws} cartas={cartasJu} sospecha={sospecha} sospecha_en_curso={sospecha_en_curso} responder={responder}/>
 
                 </div>
             </div>

@@ -10,13 +10,17 @@ const ResponderSospecha = (params) => {
 
   const sospecha = params.sospecha
   const responder = params.responder
+  const cartas = params.cartas
+  if(responder){
+      sospecha.cartas_sospechadas = sospecha.cartas_sospechadas.filter(carta => (cartas.includes(carta)))
+  }
 
   const respuesta_sospecha = () => {
     const data = JSON.stringify({action: 'respuesta_sospecha', data: eleg.nombre})
     console.log(data)
     ws.send(data)
+    setEleg(false)
   }
-  console.log(sospecha_en_curso)
     return (
       <div>
         { sospecha_en_curso && 
@@ -42,8 +46,8 @@ const ResponderSospecha = (params) => {
               </div>
             )
             } 
-          </div>)))}      
-          {!eleg.elegido && <p>Elegí una carta!!! </p>} 
+          </div>)))
+          }      
           {eleg.elegido && <button onClick={respuesta_sospecha} >
                 Elegir {eleg.nombre}
           </button>}

@@ -17,6 +17,7 @@ const Juego = (params) => {
     const datosPartidasDefault =
     {
         nombre_sospechador: '',
+        nombre_sospechoso: '',
         cartas_sospechadas: []
     }
    
@@ -29,6 +30,7 @@ const Juego = (params) => {
     const [cartasJu, setCartasJu] = useState([null]);
     const [sospecha, setSospecha] = useState(datosPartidasDefault);
     const [responder, setResponder] = useState(false)
+    const [sospecha_en_curso, setSospechaEnCurso] = useState(false)
 
 
 
@@ -85,17 +87,22 @@ const Juego = (params) => {
                 }
             return;
             case 'cartas_sospechadas':                     
-            const datos_sospecha= prueba.data
-            setSospecha(datos_sospecha) 
+                const datos_sospecha= prueba.data
+                setSospecha(datos_sospecha) 
+                setSospechaEnCurso(true) 
             return;
 
             case 'no_carta':   
-            setResponder(false)  
+                setResponder(false)  
             return;       
 
             case 'muestra':
-            setResponder(true)
+                setResponder(true)
             return;  
+            case 'sospecha_respondida':
+                setSospecha(datosPartidasDefault)
+                setSospechaEnCurso(false) 
+            return;
             default:
                 console.log("default")
             return;
@@ -138,7 +145,7 @@ const Juego = (params) => {
                 {permisoSospechar()  && <Sospechar ws={ws}/>}
                 {permisoAcusar()  && <Acusar ws={ws}/>}
                 <ApodoJugadores estado={estado}/>
-                <ResponderSospecha ws={ws} sospecha={sospecha} responder={responder}/>
+                <ResponderSospecha ws={ws} sospecha={sospecha} sospecha_en_curso={sospecha_en_curso} responder={responder}/>
 
                 </div>
             </div>

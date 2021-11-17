@@ -6,12 +6,19 @@ import CartasRepartidas from '../MostrarCartas/CartasRepartidas';
 import { Sospechar } from '../Sospecha';
 import Tablero from '../Tablero/Tablero';
 import ApodoJugadores from '../Tablero/apodo';
+import ResponderSospecha from '../Sospecha/Responder';
 
 const Juego = (params) => {
 
     const ws= params.ws
 
     var usuario = JSON.parse(sessionStorage.getItem('logueado'));
+    
+    const datosPartidasDefault =
+    {
+        nombre_sospechador: '',
+        cartas_sospechadas: []
+    }
    
     const [estado,setEstado] = useState([])
     const [miPosicion,setMiPosicion] = useState(0)
@@ -20,6 +27,10 @@ const Juego = (params) => {
     const [pasarTurno, setPasar] = useState(false);
     const [tirado, setTirado] = useState("")
     const [cartasJu, setCartasJu] = useState([null]);
+    const [sospecha, setSospecha] = useState(datosPartidasDefault);
+    const [responder, setResponder] = useState(false)
+
+
 
     ws.onmessage = function(event) {
         const prueba = JSON.parse(event.data)
@@ -72,7 +83,19 @@ const Juego = (params) => {
                 else if(resultado_acuse == "perdiste"){
                     alert("Perdiste :(") 
                 }
+                
+            case 'cartas_sospechadas':                     
+            const datos_sospecha= prueba.data
+            setSospecha(datos_sospecha) 
+            return;
 
+            case 'no_carta':   
+            setResponder(false)  
+            return;       
+
+            case 'muestra':
+            setResponder(true)
+            return;  
             default:
                 console.log("default")
             return;
@@ -97,6 +120,9 @@ const Juego = (params) => {
     const permisoSospechar = () => {
         return (pasarTurno && (miPosicion ===1 || miPosicion ===3 ||miPosicion ===5 ||miPosicion ==36 ||miPosicion ===39 ||miPosicion ===70 ||miPosicion ===72 || miPosicion ===74 )) 
     }
+    const permisoAcusar = () => {
+        return (pasarTurno) 
+    }
     
 
     return (
@@ -105,17 +131,16 @@ const Juego = (params) => {
             <div>
             <Tablero ws={ws} estado={estado} casillasDisponibles={casillasDisponibles} />
             </div>            
-            <div> 
-            <BotonDado ws={ws} id_jugador={usuario.id_jugador} 
-                turno={turno} pasarTurno={pasarTurno} tirado={tirado} tirar={tirarDado} terminar={terminarTurno}/>
+                <div> 
+                <BotonDado ws={ws} id_jugador={usuario.id_jugador} 
+                    turno={turno} pasarTurno={pasarTurno} tirado={tirado} tirar={tirarDado} terminar={terminarTurno}/>
 
-            {permisoSospechar()  && <Sospechar ws={ws}/>}
-            <ApodoJugadores estado={estado}/>
+                {permisoSospechar()  && <Sospechar ws={ws}/>}
+                {permisoAcusar()  && <Acusar ws={ws}/>}
+                <ApodoJugadores estado={estado}/>
+                <ResponderSospecha ws={ws} sospecha={sospecha} responder={responder}/>
 
-           
-            <Acusar ws={ws} />
-
-            </div>
+                </div>
             </div>
             <div>
                <CartasRepartidas cartas={cartasJu}/>

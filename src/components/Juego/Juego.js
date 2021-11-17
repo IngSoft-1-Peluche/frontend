@@ -83,7 +83,7 @@ const Juego = (params) => {
                 else if(resultado_acuse == "perdiste"){
                     alert("Perdiste :(") 
                 }
-                
+            return;
             case 'cartas_sospechadas':                     
             const datos_sospecha= prueba.data
             setSospecha(datos_sospecha) 

@@ -11,6 +11,7 @@ import StoreProvider from './store/StoreProvider';
 import Home from './components/Juego/Home'
 import { Responder, Sospechar } from './components/Sospecha';
 import PreSala from './components/Espera/PreSala';
+import SalaChat from './components/SalaChat/SalaChat';
 
 
 
@@ -25,6 +26,9 @@ function App() {
                         <Route exact path="/FormCrear" component = { FormCrear }/>
                         <Route exact path="/FormU/:idPart/:nomPart" component = { FormUnirse }/>
                         <Route exact path="/salaEsp" component = { PreSala }/>
+
+                        <Route exact path="/salaChat" component = { SalaChat }/>
+
 
                         <Route exact path="/juego" component = { Home }/>                      
 

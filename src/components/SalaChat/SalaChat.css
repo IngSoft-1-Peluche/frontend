@@ -19,6 +19,7 @@
 
 #chats .mensajes {
   color: black;
+  word-break: normal;
 }
 
 #chats .chat-body {

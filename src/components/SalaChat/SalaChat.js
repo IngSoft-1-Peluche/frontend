@@ -27,28 +27,26 @@ const SalaChat = (parametros) => {
 
     return (
          
-        <div className="container">
-    <div id="chats" className="container">
-        <div className="chat-window col-xs-5 col-md-3" id="chat_window_1">
-            <div className="chat-header col-xs-12">
-                <div className="col-xs-8">
-                    <span className="glyphicon glyphicon-comment"></span><span className="username"> Sala de chat</span>
+    <div className="container">
+        <div id="chats" className="container">
+            <div className="chat-window col-xs-5 col-md-3" id="chat_window_1">
+                <div className="chat-header col-xs-12">
+                    <div className="col-xs-8">
+                        <span> Sala de chat</span>
+                    </div>
                 </div>
-            </div>
-            
             <div className="toHide">
            
                 <div className="chat-body">
-                  <ReactScrollableFeed>
-                     {mensaje.map ((men,i) => (
-                
-                            <i className="mensajes" key={i}>{men}</i>
 
-                      ))}
+                
+                    <ReactScrollableFeed>
+
+                        {mensaje.map ((men,i) => (
+                            <i className="mensajes" key={i}>{men}</i>
+                        ))}
+
                     </ReactScrollableFeed>
-                   
-                  
-                            
                 </div>
                 <div className="chat-footer">
                     <div className="input-group">

@@ -1,4 +1,4 @@
-import React, { useState }  from 'react';
+import React  from 'react';
 import { useForm } from 'react-hook-form';
 import ReactScrollableFeed from 'react-scrollable-feed';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -11,17 +11,19 @@ import './SalaChat.css'
 const SalaChat = (parametros) => {
 
     const ws = parametros.ws
+    const mensaje = parametros.mensaje
+    
 
     const {register, handleSubmit} = useForm();
 
-    const [mensaje, setMensaje] = useState([])
+ 
   
 
-    const onSubmit = (data) => {
-
-        setMensaje([...mensaje, data.mensaje, <br />, <br />])
-
-        
+    const onSubmit = (datos, e) => {
+          
+        const mensaje = JSON.stringify({action: 'escribe_chat', data: datos})
+        ws.send(mensaje)
+        e.target.reset()    
     }
 
 
@@ -41,9 +43,9 @@ const SalaChat = (parametros) => {
 
                 
                     <ReactScrollableFeed>
-
+                     
                         {mensaje.map ((men,i) => (
-                            <i className="mensajes" key={i}>{men}</i>
+                            <p className="mensajes" key={i}>{men}</p>
                         ))}
 
                     </ReactScrollableFeed>
@@ -51,24 +53,25 @@ const SalaChat = (parametros) => {
                 <div className="chat-footer">
                     <div className="input-group">
 
-                        <form className="d-inline-flex"  onSubmit={handleSubmit(onSubmit)}>
-                            <input type="submit" value="Enviar" className= "btn btn-dark" /> 
+                        <form className="d-inline-flex" onSubmit={handleSubmit(onSubmit)}>
+                             
                             <input
-                                className="btn btn-secondary"
+                                className="form-control input-sm chat-input"
                                 name="mensaje"
                                 placeholder="Escriba su mensaje"
-                                {...register("mensaje",{
-                                     maxLength: {value: 300, message: '300 caracteres máximo'}
+                                {...register("mensaje", {
+                                    required: true,
                                 })
                             }/> 
+                            <button type="submit" className=  "btn btn-primary">Enviar</button>
                                   
                         </form>
+                    </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
     
     )
 }

@@ -1,55 +1,21 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
+
 import 'bootstrap/dist/css/bootstrap.css';
+
 
 
 const SalaEspera = (params) => {
 
-
-    const history= useHistory();
-
     var logueado = JSON.parse(sessionStorage.getItem('logueado'));
+
+    
 
     const ws = params.ws
 
-    const partidaDefault = {
-        jugador_conectado: null,
-        id_partida: null,
-        nombre_partida: null,
-        jugadores: []
-    }
-
+    const partida = params.partida
    
-    const [partida, setPartida] = useState(partidaDefault); 
-   
-
-        ws.onmessage = function(event) {
-        
-            const info = JSON.parse(event.data)
-    
-            switch(info.action) {
-                
-                case 'nuevo_jugador':
-                    
-                    const datos = info.data
-                    setPartida(datos) 
-
-                return;
-            
-                case 'iniciada':
-                    history.push("/juego")
-                return;
-
-                case 'jugador_desconectado_lobby':
-                    
-                    const desconecta = info.data
-                    setPartida(desconecta) 
-                return;
-
-            }
-
-        }
 
     const iniciar = () => {
 
@@ -58,7 +24,8 @@ const SalaEspera = (params) => {
     }
 
     return (
-
+       
+        
         <div>
             <h2 className="bg-dark text-white">
                 Sala de espera de la partida {partida.nombre_partida} 
@@ -93,14 +60,16 @@ const SalaEspera = (params) => {
                             <></>
                         )} 
                     </th>
+                    
                 </tr>
             </thead>
             <tbody>
                 {partida.jugadores.length > 0 ? (
-                    partida.jugadores.map((jugador) => (
-                        <tr key={jugador} className = "table-secondary">                   
+                    partida.jugadores.map((jugador,i) => (
+                        <tr key={i} className = "table-secondary">                   
                             
                             <td>{jugador}</td>
+                            <td></td>
                             <td></td>
                         
                         </tr>
@@ -111,9 +80,13 @@ const SalaEspera = (params) => {
                         <td colSpan = {3}>No hay jugadores</td>
                     </tr>
                     )    
-                }           
+                } 
+
+            
+                        
             </tbody>
             </table>
+        
         </div>
     );
 }

@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import Acusar from '../Acusar/Acusar';
 import BotonDado from '../Dado/BotonDado';
-import ListarJugadores from '../Listar/ListarJugadores';
 import CartasRepartidas from '../MostrarCartas/CartasRepartidas';
 import { Sospechar } from '../Sospecha';
 import Tablero from '../Tablero/Tablero';
 import ApodoJugadores from '../Tablero/apodo';
 import ResponderSospecha from '../Sospecha/Responder';
+import Informe from '../Informe/Informe';
 
 const Juego = (params) => {
 
@@ -55,7 +55,6 @@ const Juego = (params) => {
                 setMiPosicion(prueba.data.posicion_final)
             return;
             case 'error_imp':
-                setTurno(false)
             return; 
             case 'no_recinto':
                 console.log("no esta en recinto")
@@ -63,6 +62,10 @@ const Juego = (params) => {
             case 'mostrar_cartas':
                 const datos = prueba.data.cartas
                 setCartasJu(datos)
+            return;
+            case 'acuso':
+                setEstado(prueba.data.lista_jugadores)
+                setTurno(prueba.data.lista_jugadores.find(el=> el.apodo ==usuario.apodo).en_turno)
             return;
 
             case 'estado_jugadores':
@@ -142,7 +145,7 @@ const Juego = (params) => {
                 {permisoAcusar()  && <Acusar ws={ws}/>}
                 <ApodoJugadores estado={estado}/>
                 <ResponderSospecha ws={ws} cartas={cartasJu} sospecha={sospecha} sospecha_en_curso={sospecha_en_curso} responder={responder}/>
-
+                <Informe/>
                 </div>
             </div>
             <div>

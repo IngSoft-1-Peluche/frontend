@@ -1,14 +1,30 @@
-import React from 'react';
-import {render, screen, waitFor} from '@testing-library/react'
-import {rest} from 'msw';
-import {setupServer} from 'msw/node';
-import { withRouter } from "react-router-dom";
-import { createMemoryHistory } from "history"; 
-import {Router, Route } from 'react-router';
-import userEvent from '@testing-library/user-event';
-import FormUnirse from './FormUnirse';
+import React from 'react'
+import { render, fireEvent, waitFor,screen } from '@testing-library/react'
+import FormUnirse from './FormUnirse'
+import userEvent from '@testing-library/user-event'
+import {rest} from 'msw'
+import {setupServer} from 'msw/node'
+import { createMemoryHistory } from "history"
+import {Router, Route } from 'react-router'
+import { withRouter } from "react-router-dom"
 
-// Fuente : https://medium.com/@aarling/mocking-a-react-router-match-object-in-your-component-tests-fa95904dcc55
+const mockHistoryPush = jest.fn()
+
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useHistory: () => ({
+    push: mockHistoryPush,
+  }),
+}));
+
+const server = setupServer(        
+  rest.put('http://localhost:8000/partidas/', (req, res, ctx) => {
+  return res(ctx.status(200), ctx.json())
+}),)
+
+beforeAll(() => server.listen())
+afterEach(() => server.resetHandlers())
+afterAll(() => server.close())
 
 const ContentWrapper = ({ children, match }) => (
     <FormUnirse>
@@ -36,28 +52,53 @@ export function renderWithRouterMatch(
     };
   }
 
-  // Finaliza el codigo obtenido de la fuente externa
+test('Unirse a una partida de manera correcta', async () => {
+    const apiRequests = jest.fn();
+    server.use(
+        rest.put('http://localhost:8000/partidas/', (req, res, ctx) => {
+            //console.log(req["body"])
+            //expect(req["body"]["id_partida"]).toBe(null)
+            //expect(req["body"]["apodo"]).toBe('apodoJugador1')
+            apiRequests()
+            return res(ctx.status(200), ctx.json([]))
+        }),
+    ) 
 
-const server = setupServer(
-    rest.put('http://localhost:8000/partidas/:id_partida?:apodo', (req, res, ctx) => {
-        return res(ctx.status(200), ctx.json([]))
-    }), 
-)
-
-beforeAll(() => server.listen())
-afterEach(() => server.resetHandlers())
-afterAll(() => server.close())
-
-
-test('Unir un usuario a partida', async () => {
-    const { getByText } = renderWithRouterMatch(ContentWrapper, {
-        route: "/partidas/1?persona_unida",
-        path: "/partidas/:id_partida?:apodo"
+    const component = renderWithRouterMatch(ContentWrapper, {
+        route: "/FormU/1/PrimerPartida",
+        path: "/FormU/:id_partida/:apodo"
     });
-    await waitFor(() => screen.getByText('Definición de apodo para entrar a'), { timeout: 4000 })  
-    const casilla_input = screen.getByPlaceholderText("Ingrese su apodo")
-    casilla_input.value = "apodoJugador1"
-    const boton_enviar =  await waitFor(() => screen.getByText('Confirmar'), { timeout: 4000 })  
+
+    await component.findByText('Definición de apodo para entrar a') 
+    const casilla_apodo = component.getByPlaceholderText("Ingrese su apodo")
+    fireEvent.change(casilla_apodo, {target: {value: 'apodoJugador1'}})
+    expect(casilla_apodo.value).toBe('apodoJugador1')
+
+    const boton_enviar =  await component.findByText('Confirmar')
     await waitFor(() => userEvent.click(boton_enviar), { timeout: 4000 })
+    expect(apiRequests).toHaveBeenCalledTimes(1);
+    await component.findByText('Confirmar') 
 
 })
+
+
+test('Intentar unirse sin apodo', async () => {
+  const apiRequests = jest.fn();
+
+  const component = renderWithRouterMatch(ContentWrapper, {
+      route: "/FormU/1/PrimerPartida",
+      path: "/FormU/:id_partida/:apodo"
+  });
+
+  server.use(
+    rest.put('http://localhost:8000/partidas/', (req, res, ctx) => {
+        apiRequests()
+        return res(ctx.status(200), ctx.json([]))
+    }),
+  ) 
+  
+  const boton_enviar =  await component.findByText('Confirmar')
+  await waitFor(() => userEvent.click(boton_enviar), { timeout: 4000 })
+  expect(apiRequests).toHaveBeenCalledTimes(0);
+  await component.findByText('Apodo obligatorio') 
+}) 

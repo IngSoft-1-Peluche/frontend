@@ -1,5 +1,5 @@
 import React from 'react';
-import {render,screen} from '@testing-library/react'
+import {render} from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect';
 import Tablero from './Tablero';
 
@@ -14,9 +14,6 @@ test('Modulo renderiza correctamente', async () => {
     var i = 0
     imagenes.map( img => {
         imagenes[i] = img.id
-        if (img.id==83){
-            //console.log(img)
-        }
         i = i+1
     } )
     expect(imagenes).toStrictEqual([

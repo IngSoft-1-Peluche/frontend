@@ -4,11 +4,11 @@ import './Informe.css';
 const Informe = () => {
 
   const lista = [["Conde", "Hombre Lobo", "Biblioteca"],
-                 ["Condesa", "Fantasma", "Salon"],
-                 ["Mayordomo", "Momia", "Panteon"],
-                 ["Ama de llaves", "Drácula", "Bodega"],
-                 ["Jardinero", "Frankenstein", "Vestibulo"],
-                 ["Doncella", "Dr Jekyll Mr Hyde", "Cochera"]]
+  ["Condesa", "Fantasma", "Salon"],
+  ["Mayordomo", "Momia", "Panteon"],
+  ["Ama de llaves", "Drácula", "Bodega"],
+  ["Jardinero", "Frankenstein", "Vestibulo"],
+  ["Doncella", "Dr Jekyll Mr Hyde", "Cochera"]]
 
   const Fila = (params) => {
 
@@ -16,7 +16,7 @@ const Informe = () => {
       lista[params.numero].map(elem =>
         <>
           <th>{elem}</th>
-          <th><input type="radio"  name={elem}></input></th>
+          <th><input type="radio" name={elem}></input></th>
           <th><input type="radio" name={elem}></input></th>
           <th><input type="radio" name={elem}></input></th>
         </>
@@ -27,7 +27,7 @@ const Informe = () => {
   return (
     <>
       <table>
-        <tr Style={{Color: "yellow"}}>
+        <tr Style={{ Color: "yellow" }}>
           <th>Victima</th>
           <th>?</th>
           <th>X</th>

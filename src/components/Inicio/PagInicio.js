@@ -7,15 +7,15 @@ const PagInicio = () => {
 
     return (
 
-            <nav>
-                <h1 className="bg-dark text-white">Juego Misterio</h1>
-                <ul>
-                    <Link to="/FormCrear" className= "btn btn-dark">Crear Partida</Link>
-                </ul>
-                <ul>
-                    <Link to="/PartidasDis" className= "btn btn-dark">Unirse a partida creada</Link>
-                </ul>
-            </nav>
+        <nav>
+            <h1 className="bg-dark text-white">Juego Misterio</h1>
+            <ul>
+                <Link to="/FormCrear" className="btn btn-dark">Crear Partida</Link>
+            </ul>
+            <ul>
+                <Link to="/PartidasDis" className="btn btn-dark">Unirse a partida creada</Link>
+            </ul>
+        </nav>
 
     );
 }

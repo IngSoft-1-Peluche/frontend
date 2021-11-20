@@ -12,7 +12,7 @@ import Informe from '../Informe/Informe';
 
 const Juego = (params) => {
 
-    const ws= params.ws
+    const ws = params.ws
 
     var usuario = JSON.parse(sessionStorage.getItem('logueado'));
 
@@ -23,9 +23,9 @@ const Juego = (params) => {
         cartas_sospechadas: []
     }
 
-    const [estado,setEstado] = useState([])
-    const [miPosicion,setMiPosicion] = useState(0)
-    const [casillasDisponibles,setCasillasDisponibles] = useState([])
+    const [estado, setEstado] = useState([])
+    const [miPosicion, setMiPosicion] = useState(0)
+    const [casillasDisponibles, setCasillasDisponibles] = useState([])
     const [turno, setTurno] = useState(false);
     const [pasarTurno, setPasar] = useState(false);
     const [tirado, setTirado] = useState("")
@@ -36,88 +36,88 @@ const Juego = (params) => {
 
 
 
-    ws.onmessage = function(event) {
+    ws.onmessage = function (event) {
         const prueba = JSON.parse(event.data)
-        switch(prueba.action) {
+        switch (prueba.action) {
             case 'tiraron_dado':
-                const resultado = 'El jugador '+ prueba.data.nombre_jugador +' tiró un ' + prueba.data.numero_dado
+                const resultado = 'El jugador ' + prueba.data.nombre_jugador + ' tiró un ' + prueba.data.numero_dado
                 setTirado(resultado)
-            return;
+                return;
             case 'tu_turno':
                 setTurno(true)
-            return;
+                return;
             case 'tire_dado':
 
                 const respuesta = prueba.data.casillas_a_mover
                 setCasillasDisponibles(respuesta)
-            return;
+                return;
             case 'me_movi':
                 setCasillasDisponibles([])
                 setPasar(true)
                 setMiPosicion(prueba.data.posicion_final)
-            return;
+                return;
             case 'error_imp':
-            return;
+                return;
             case 'no_recinto':
                 console.log("no esta en recinto")
-            return;
+                return;
             case 'mostrar_cartas':
                 const datos = prueba.data.cartas
                 setCartasJu(datos)
-            return;
+                return;
             case 'acuso':
                 setEstado(prueba.data.lista_jugadores)
-                setTurno(prueba.data.lista_jugadores.find(el=> el.apodo === usuario.apodo).en_turno)
-            return;
+                setTurno(prueba.data.lista_jugadores.find(el => el.apodo === usuario.apodo).en_turno)
+                return;
 
             case 'estado_jugadores':
                 setEstado(prueba.data.lista_jugadores)
-                setTurno(prueba.data.lista_jugadores.find(el=> el.apodo === usuario.apodo).en_turno)
-            return;
+                setTurno(prueba.data.lista_jugadores.find(el => el.apodo === usuario.apodo).en_turno)
+                return;
             case 'se_movio':
                 setEstado(prueba.data.lista_jugadores)
-            return;
+                return;
             case 'terminaron_turno':
                 (prueba.data.nombre_jugador === usuario.apodo) ? setTurno(true) : setTurno(false);
                 setEstado(prueba.data.lista_jugadores)
-            return;
+                return;
 
             case 'acuse':
                 const resultado_acuse = prueba.data.message
-                if (resultado_acuse === "ganaste"){
+                if (resultado_acuse === "ganaste") {
                     alert("Ganaste!!!")
                 }
-                else if(resultado_acuse === "perdiste"){
+                else if (resultado_acuse === "perdiste") {
                     alert("Perdiste :(")
                 }
-            return;
+                return;
             case 'cartas_sospechadas':
-                const datos_sospecha= prueba.data
+                const datos_sospecha = prueba.data
                 setSospecha(datos_sospecha)
                 setSospechaEnCurso(true)
-            return;
+                return;
             case 'muestra':
                 setResponder(true)
-            return;
+                return;
             case 'sospecha_respondida':
                 setSospecha(datosPartidasDefault)
                 setSospechaEnCurso(false)
                 setResponder(false)
-            return;
+                return;
             default:
-            return;
+                return;
         }
     }
 
     const tirarDado = (event) => {
-        const data = JSON.stringify({action: 'tirar_dado', data:''})
+        const data = JSON.stringify({ action: 'tirar_dado', data: '' })
         ws.send(data)
         setTurno(false)
         event.preventDefault()
     }
 
     const terminarTurno = (event) => {
-        const data = JSON.stringify({action: 'terminar_turno', data:''})
+        const data = JSON.stringify({ action: 'terminar_turno', data: '' })
         ws.send(data)
         setTurno(false)
         setPasar(false)
@@ -125,7 +125,9 @@ const Juego = (params) => {
     }
 
     const permisoSospechar = () => {
-        return (pasarTurno && (miPosicion ===1 || miPosicion ===3 ||miPosicion ===5 ||miPosicion ===36 ||miPosicion ===39 ||miPosicion ===70 ||miPosicion ===72 || miPosicion ===74 ))
+        return (pasarTurno && (miPosicion === 1 || miPosicion === 3 || miPosicion === 5
+            || miPosicion === 36 || miPosicion === 39 || miPosicion === 70
+            || miPosicion === 72 || miPosicion === 74))
     }
     const permisoAcusar = () => {
         return (pasarTurno)
@@ -134,23 +136,25 @@ const Juego = (params) => {
 
     return (
         <>
-            <div style={{display:"flex",flexDirection:"row"}}>
-            <div>
-            <Tablero ws={ws} estado={estado} casillasDisponibles={casillasDisponibles} />
-            </div>
+            <div style={{ display: "flex", flexDirection: "row" }}>
                 <div>
-                <BotonDado ws={ws} id_jugador={usuario.id_jugador}
-                    turno={turno} pasarTurno={pasarTurno} tirado={tirado} tirar={tirarDado} terminar={terminarTurno}/>
+                    <Tablero ws={ws} estado={estado} casillasDisponibles={casillasDisponibles} />
+                </div>
+                <div>
+                    <BotonDado ws={ws} id_jugador={usuario.id_jugador}
+                        turno={turno} pasarTurno={pasarTurno} tirado={tirado} tirar={tirarDado}
+                        terminar={terminarTurno} />
 
-                {permisoSospechar()  && <Sospechar ws={ws}/>}
-                {permisoAcusar()  && <Acusar ws={ws}/>}
-                <ApodoJugadores estado={estado}/>
-                <ResponderSospecha ws={ws} cartas={cartasJu} sospecha={sospecha} sospecha_en_curso={sospecha_en_curso} responder={responder}/>
-                <Informe/>
+                    {permisoSospechar() && <Sospechar ws={ws} />}
+                    {permisoAcusar() && <Acusar ws={ws} />}
+                    <ApodoJugadores estado={estado} />
+                    <ResponderSospecha ws={ws} cartas={cartasJu} sospecha={sospecha}
+                        sospecha_en_curso={sospecha_en_curso} responder={responder} />
+                    <Informe />
                 </div>
             </div>
             <div>
-               <CartasRepartidas cartas={cartasJu}/>
+                <CartasRepartidas cartas={cartasJu} />
             </div>
         </>
     )

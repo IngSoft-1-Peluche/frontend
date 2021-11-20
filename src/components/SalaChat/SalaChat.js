@@ -1,4 +1,4 @@
-import React  from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import ReactScrollableFeed from 'react-scrollable-feed';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -13,14 +13,14 @@ const SalaChat = (parametros) => {
     const ws = parametros.ws
     const mensaje = parametros.mensaje
 
-    const {register, handleSubmit} = useForm();
+    const { register, handleSubmit } = useForm();
 
 
 
 
     const onSubmit = (datos, e) => {
 
-        const mensaje = JSON.stringify({action: 'escribe_chat', data: datos})
+        const mensaje = JSON.stringify({ action: 'escribe_chat', data: datos })
         ws.send(mensaje)
         e.target.reset()
     }
@@ -28,49 +28,46 @@ const SalaChat = (parametros) => {
 
     return (
 
-    <div className="container">
-        <div id="chats" className="container">
-            <div className="chat-window col-xs-5 col-md-3" id="chat_window_1">
-                <div className="chat-header col-xs-12">
-                    <div className="col-xs-8">
-                        <span> Sala de chat</span>
+        <div className="container">
+            <div id="chats" className="container">
+                <div className="chat-window col-xs-5 col-md-3" id="chat_window_1">
+                    <div className="chat-header col-xs-12">
+                        <div className="col-xs-8">
+                            <span> Sala de chat</span>
+                        </div>
                     </div>
-                </div>
-            <div className="toHide">
+                    <div className="toHide">
+                        <div className="chat-body">
+                            <ReactScrollableFeed>
 
-                <div className="chat-body">
+                                {mensaje.map((men, i) => (
+                                    <p className="mensajes" key={i}>{men}</p>
+                                ))}
 
+                            </ReactScrollableFeed>
+                        </div>
+                        <div className="chat-footer">
+                            <div className="input-group">
 
-                    <ReactScrollableFeed>
+                                <form className="d-inline-flex" onSubmit={handleSubmit(onSubmit)}>
 
-                        {mensaje.map ((men,i) => (
-                            <p className="mensajes" key={i}>{men}</p>
-                        ))}
+                                    <input
+                                        className="form-control input-sm chat-input"
+                                        name="mensaje"
+                                        placeholder="Escriba su mensaje"
+                                        {...register("mensaje", {
+                                            required: true,
+                                        })
+                                        } />
+                                    <button type="submit" className="btn btn-primary">Enviar</button>
 
-                    </ReactScrollableFeed>
-                </div>
-                <div className="chat-footer">
-                    <div className="input-group">
-
-                        <form className="d-inline-flex" onSubmit={handleSubmit(onSubmit)}>
-
-                            <input
-                                className="form-control input-sm chat-input"
-                                name="mensaje"
-                                placeholder="Escriba su mensaje"
-                                {...register("mensaje", {
-                                    required: true,
-                                })
-                            }/>
-                            <button type="submit" className=  "btn btn-primary">Enviar</button>
-
-                        </form>
-                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
     )
 }

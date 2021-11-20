@@ -6,8 +6,8 @@ const WsSala = () => {
     var usuario = JSON.parse(sessionStorage.getItem('logueado'));
     const ws = new WebSocket(`ws://localhost:8000/ws/${usuario.id_jugador}`)
 
-    return(
-            <PreSala ws={ws}/>
+    return (
+        <PreSala ws={ws} />
     )
 }
 

@@ -11,23 +11,23 @@ import WsSala from './components/Espera/WsSala';
 
 
 function App() {
-    return(
+    return (
 
-            <React.Fragment>
-                <Router>
-                    <Switch>
+        <React.Fragment>
+            <Router>
+                <Switch>
 
-                        <Route exact path="/partidasDis" component = { TablaDis }/>
-                        <Route exact path="/FormCrear" component = { FormCrear }/>
-                        <Route exact path="/FormU/:idPart/:nomPart" component = { FormUnirse }/>
-                        <Route exact path="/salaEsp" component = { WsSala }/>
-                        <Route exact path="/juego" component = { Home }/>
-                        <Route exact path="/" component = { PagInicio }/>
-                        <Route path="*">{<h1>404 Pagina no encontrada</h1>}</Route>
+                    <Route exact path="/partidasDis" component={TablaDis} />
+                    <Route exact path="/FormCrear" component={FormCrear} />
+                    <Route exact path="/FormU/:idPart/:nomPart" component={FormUnirse} />
+                    <Route exact path="/salaEsp" component={WsSala} />
+                    <Route exact path="/juego" component={Home} />
+                    <Route exact path="/" component={PagInicio} />
+                    <Route path="*">{<h1>404 Pagina no encontrada</h1>}</Route>
 
-                    </Switch>
-                </Router>
-            </React.Fragment>
+                </Switch>
+            </Router>
+        </React.Fragment>
 
     );
 }

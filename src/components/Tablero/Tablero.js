@@ -96,12 +96,12 @@ const Tablero = (params) => {
     const lista = params.estado
 
     const EstadoJugadores = (id) => {
-        return(
-        lista.map(jugador => (
-            (jugador.posicion) === id &&
+        return (
+            lista.map(jugador => (
+                (jugador.posicion) === id &&
                 <div className="dot" key={jugador.apodo} style={{ backgroundColor: jugador.color }}>
                 </div>
-        )))
+            )))
     }
 
 

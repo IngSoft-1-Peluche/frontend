@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import './Tablero.css';
 import cochera from '../../assets/imagenes/cochera.jpg';
 import alcoba from '../../assets/imagenes/alcoba.jpg';
@@ -89,22 +89,22 @@ import entrada_08 from '../../assets/imagenes/entrada_08.jpg';
 
 const Tablero = (params) => {
 
-    var usuario = JSON.parse(sessionStorage.getItem('logueado'));
-
     useEffect(() => {
         cambiar()
     })
-    
+
     const lista = params.estado
 
     const EstadoJugadores = (id) => {
         return(
         lista.map(jugador => (
-            (jugador.posicion) == id && <div className="dot" key={jugador.apodo} style={{ backgroundColor: jugador.color }}></div> 
+            (jugador.posicion) === id &&
+                <div className="dot" key={jugador.apodo} style={{ backgroundColor: jugador.color }}>
+                </div>
         )))
     }
 
-    
+
     const cambiar = () => {
         params.casillasDisponibles.forEach(element => {
             var a = document.getElementById(element);
@@ -113,7 +113,7 @@ const Tablero = (params) => {
     }
 
     const click_on_image = (event) => {
-        if (params.casillasDisponibles.find(element => element == event.target.id)) {
+        if (params.casillasDisponibles.find(element => element === event.target.id)) {
             const data = JSON.stringify({ action: 'mover_jugador', data: { nueva_posicion: parseInt(event.target.id) } })
             params.ws.send(data)
             event.preventDefault()

@@ -1,6 +1,4 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-
+import React from 'react';
 
 import 'bootstrap/dist/css/bootstrap.css';
 
@@ -10,12 +8,12 @@ const SalaEspera = (params) => {
 
     var logueado = JSON.parse(sessionStorage.getItem('logueado'));
 
-    
+
 
     const ws = params.ws
 
     const partida = params.partida
-   
+
 
     const iniciar = () => {
 
@@ -24,29 +22,28 @@ const SalaEspera = (params) => {
     }
 
     return (
-       
-        
+
         <div>
             <h2 className="bg-dark text-white">
-                Sala de espera de la partida {partida.nombre_partida} 
+                Sala de espera de la partida {partida.nombre_partida}
             </h2>
             <h2 className="bg-dark text-white">
-                Jugador : {logueado.apodo}                
-                
+                Jugador : {logueado.apodo}
+
             </h2>
-          
+
             <table className="table table-striped table-dark">
-        
+
             <thead className="thead-dark">
                 <tr>
 
                     <th scope="col">Apodo</th>
 
 
-                    {partida.jugadores.length < 2 && logueado.creador ? ( 
+                    {partida.jugadores.length < 2 && logueado.creador ? (
                         <th>Esperando que se unan mas jugadores</th>
-                    ) : (  
-                        <></>  
+                    ) : (
+                        <></>
                     )}
                     {!logueado.creador ? (
 
@@ -58,20 +55,20 @@ const SalaEspera = (params) => {
                             <button className= "btn btn-primary" onClick={iniciar}>Iniciar partida</button>
                         ) : (
                             <></>
-                        )} 
+                        )}
                     </th>
-                    
+
                 </tr>
             </thead>
             <tbody>
                 {partida.jugadores.length > 0 ? (
                     partida.jugadores.map((jugador,i) => (
-                        <tr key={i} className = "table-secondary">                   
-                            
+                        <tr key={i} className = "table-secondary">
+
                             <td>{jugador}</td>
                             <td></td>
                             <td></td>
-                        
+
                         </tr>
                         )
                     )
@@ -79,14 +76,12 @@ const SalaEspera = (params) => {
                     <tr>
                         <td colSpan = {3}>No hay jugadores</td>
                     </tr>
-                    )    
-                } 
+                    )
+                }
 
-            
-                        
             </tbody>
             </table>
-        
+
         </div>
     );
 }

@@ -12,14 +12,14 @@ const Sospechar = (params) => {
   const [elegidas, SetElegidas] = useState(false)
 
   const ws = params.ws
-  
+
   const {
     register,
     handleSubmit,
   } = useForm();
 
   const onSubmit = (info) => {
-    
+
     SetCartasSos(info)
     const data = JSON.stringify({action:'sospechan', data: info})
     SetElegidas(true)
@@ -53,7 +53,7 @@ const Sospechar = (params) => {
         <h4>Usted eligio las cartas: {cartasSos.carta_monstruo} y {cartasSos.carta_victima}</h4>
         ):(<h4>Elija</h4>)}
     </form>
-   
+
   );
 }
 

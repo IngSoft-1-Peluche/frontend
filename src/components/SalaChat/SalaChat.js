@@ -12,23 +12,22 @@ const SalaChat = (parametros) => {
 
     const ws = parametros.ws
     const mensaje = parametros.mensaje
-    
 
     const {register, handleSubmit} = useForm();
 
- 
-  
+
+
 
     const onSubmit = (datos, e) => {
-          
+
         const mensaje = JSON.stringify({action: 'escribe_chat', data: datos})
         ws.send(mensaje)
-        e.target.reset()    
+        e.target.reset()
     }
 
 
     return (
-         
+
     <div className="container">
         <div id="chats" className="container">
             <div className="chat-window col-xs-5 col-md-3" id="chat_window_1">
@@ -38,12 +37,12 @@ const SalaChat = (parametros) => {
                     </div>
                 </div>
             <div className="toHide">
-           
+
                 <div className="chat-body">
 
-                
+
                     <ReactScrollableFeed>
-                     
+
                         {mensaje.map ((men,i) => (
                             <p className="mensajes" key={i}>{men}</p>
                         ))}
@@ -54,7 +53,7 @@ const SalaChat = (parametros) => {
                     <div className="input-group">
 
                         <form className="d-inline-flex" onSubmit={handleSubmit(onSubmit)}>
-                             
+
                             <input
                                 className="form-control input-sm chat-input"
                                 name="mensaje"
@@ -62,9 +61,9 @@ const SalaChat = (parametros) => {
                                 {...register("mensaje", {
                                     required: true,
                                 })
-                            }/> 
+                            }/>
                             <button type="submit" className=  "btn btn-primary">Enviar</button>
-                                  
+
                         </form>
                     </div>
                     </div>
@@ -72,7 +71,7 @@ const SalaChat = (parametros) => {
             </div>
         </div>
     </div>
-    
+
     )
 }
 

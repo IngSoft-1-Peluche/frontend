@@ -10,14 +10,14 @@ const Acusar = (params) => {
   const [elegidas, SetElegidas] = useState(false)
 
   const ws = params.ws
-  
+
   const {
     register,
     handleSubmit,
   } = useForm();
 
   const onSubmit = (info) => {
-    
+
     SetCartasAcus(info)
     const data = JSON.stringify({action:'acusar', data: info})
     console.log(data)

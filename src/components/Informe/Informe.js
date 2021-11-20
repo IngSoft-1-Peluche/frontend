@@ -3,8 +3,15 @@ import './Informe.css';
 
 const Informe = () => {
 
-  const lista = [["Conde", "Hombre Lobo", "Biblioteca"], ["Condesa", "Fantasma", "Salon"], ["Mayordomo", "Momia", "Panteon"], ["Ama de llaves", "Drácula", "Bodega"], ["Jardinero", "Frankenstein", "Vestibulo"], ["Doncella", "Dr Jekyll Mr Hyde", "Cochera"]]
+  const lista = [["Conde", "Hombre Lobo", "Biblioteca"],
+                 ["Condesa", "Fantasma", "Salon"],
+                 ["Mayordomo", "Momia", "Panteon"],
+                 ["Ama de llaves", "Drácula", "Bodega"],
+                 ["Jardinero", "Frankenstein", "Vestibulo"],
+                 ["Doncella", "Dr Jekyll Mr Hyde", "Cochera"]]
+
   const Fila = (params) => {
+
     return (
       lista[params.numero].map(elem =>
         <>

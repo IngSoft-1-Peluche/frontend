@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './CartasRepartidas.css'
 
 const CartasRepartidas = (params) => {
@@ -9,7 +9,7 @@ const CartasRepartidas = (params) => {
 
     return (params.cartas.map((carta) => (
       <div className="flex-div" key={carta}>
-        <img className="brightness" src={`/assets/${carta}.png`} width="90" height="137" />
+        <img className="brightness" src={`/assets/${carta}.png`} width="90" height="137" alt="cartas del jugador"/>
         <p>{carta}</p>
       </div>
     )))

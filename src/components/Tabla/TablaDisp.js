@@ -1,31 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-import { useHistory } from 'react-router-dom';
-
 import 'bootstrap/dist/css/bootstrap.css';
 
 
 const TablaDisp = () => {
 
-    const history= useHistory();
 
-    const datosPartidasDefault = [ 
-        {id_partida: '', nombre_partida: '', cantidad_jugadores: ''}     
+    const datosPartidasDefault = [
+        {id_partida: '', nombre_partida: '', cantidad_jugadores: ''}
     ];
 
     const [partida, setPartida] = useState(datosPartidasDefault);
 
     const obtenerPartidas = async () => {
-       const datos = await fetch('http://localhost:8000/partidas') 
+       const datos = await fetch('http://localhost:8000/partidas')
        const partidas = await datos.json()
        setPartida(partidas)
     }
-    
+
 
     useEffect(() => {
-        
+
         obtenerPartidas()
+
     }, [])
 
 
@@ -35,7 +33,7 @@ const TablaDisp = () => {
 
 
     return (
-       
+
 
     <table className="table table-striped table-dark">
         <thead className="thead-dark">
@@ -45,7 +43,7 @@ const TablaDisp = () => {
                 <th>
                     <button onClick={recargar} >Actualizar</button>
                 </th>
-                
+
             </tr>
         </thead>
         <tbody>
@@ -57,7 +55,7 @@ const TablaDisp = () => {
                         <td>
                             <Link className= "btn btn-dark"
                              to={`/FormU/${partida.id_partida}/${partida.nombre_partida}`}>Unirse
-                            </Link>  
+                            </Link>
                         </td>
                     </tr>
                     )
@@ -66,12 +64,12 @@ const TablaDisp = () => {
                 <tr>
                     <td colSpan = {3}>No hay partidas disponibles</td>
                 </tr>
-                )    
+                )
             }
-            
+
         </tbody>
     </table>
- 
+
     );
 }
 

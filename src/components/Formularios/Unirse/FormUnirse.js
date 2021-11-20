@@ -15,27 +15,27 @@ const FormUnirse = () => {
 
     const onSubmit = async (data) => {
 
-        
+
         const enviar ={
             id_partida: parseInt(idPart),
             apodo: data.apodo
         }
-       
+
         const respuesta = await fetch("http://localhost:8000/partidas/", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(enviar)}).then(respuesta => respuesta.json());
 
         window.sessionStorage.setItem('logueado', JSON.stringify({
-                                    apodo: respuesta.apodo, 
-                                    id_jugador: respuesta.id_jugador, 
+                                    apodo: respuesta.apodo,
+                                    id_jugador: respuesta.id_jugador,
                                     creador: false}))
-        
+
         history.push("/salaEsp");
     }
 
     return(
-       
+
         <div>
             <h2 className="bg-dark text-white">Definición de apodo para entrar a {nomPart}</h2>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -48,13 +48,13 @@ const FormUnirse = () => {
                         maxLength: {value: 15, message: '15 caracteres máximo'}
                     })
                     }
-                />     
+                />
                 <span className="text-danger text-small d-block mb-2">
                     {errors?.apodo?.message}
                 </span>
-                
+
                 <button className= "btn btn-dark">Confirmar</button>
-               
+
             </form>
         </div>
     )

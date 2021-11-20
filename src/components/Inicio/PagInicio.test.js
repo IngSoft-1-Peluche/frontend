@@ -1,11 +1,8 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect'
 import { BrowserRouter as Router} from 'react-router-dom';
-
 import PagInicio from './PagInicio';
-
-
 
 test('Pagina inicio renderiza correctamente', () =>{
     
@@ -19,7 +16,7 @@ test('Pagina inicio renderiza correctamente', () =>{
 test('Click en crear nos dirige a la url correcta', () => {
 
    const component = render(<Router><PagInicio /></Router>);
-   const boton_crear = screen.getByText('Crear Partida')
+   const boton_crear = component.getByText('Crear Partida')
    expect( boton_crear).toHaveAttribute( 'href','/FormCrear')
 
 });
@@ -27,8 +24,8 @@ test('Click en crear nos dirige a la url correcta', () => {
 test('Click en unirce a partida nos dirige a la url correcta', () => {
 
     const component = render(<Router><PagInicio /></Router>);
-    const boton_crear = screen.getByText('Unirse a partida creada')
-    expect( boton_crear).toHaveAttribute( 'href','/PartidasDis')
+    const boton_crear = component.getByText('Unirse a partida creada')
+    expect(boton_crear).toHaveAttribute( 'href','/PartidasDis')
  
  });
 

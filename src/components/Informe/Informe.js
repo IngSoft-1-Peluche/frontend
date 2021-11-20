@@ -6,13 +6,14 @@ const Informe = () => {
   const lista = [["Conde", "Hombre Lobo", "Biblioteca"], ["Condesa", "Fantasma", "Salon"], ["Mayordomo", "Momia", "Panteon"], ["Ama de llaves", "Drácula", "Bodega"], ["Jardinero", "Frankenstein", "Vestibulo"], ["Doncella", "Dr Jekyll Mr Hyde", "Cochera"]]
   const Fila = (params) => {
     return (
-      lista[params.numero].map(elem =>
+      lista[params.numero].map(elem => (
+        
         <>
-          <th>{elem}</th>
-          <th><input type="radio"  name={elem}></input></th>
-          <th><input type="radio" name={elem}></input></th>
-          <th><input type="radio" name={elem}></input></th>
-        </>
+          <th key={elem+'4'}>{elem}</th>
+          <th key={elem+'1'}><input key={elem+'22'} type="radio"  name={elem}></input></th>
+          <th key={elem+'2'}><input key={elem+'45'} type="radio" name={elem}></input></th>
+          <th key={elem+'3'}><input key={elem+'67'} type="radio" name={elem}></input></th>
+        </>)
       )
     )
   }
@@ -20,7 +21,8 @@ const Informe = () => {
   return (
     <>
       <table>
-        <tr Style={{Color: "yellow"}}>
+        <tbody>
+        <tr style={{Color: "yellow"}}>
           <th>Victima</th>
           <th>?</th>
           <th>X</th>
@@ -80,6 +82,7 @@ const Informe = () => {
           <th><input type="radio" name="Laboratorio"></input></th>
           <th><input type="radio" name="Laboratorio"></input></th>
         </tr>
+        </tbody>
       </table>
     </>
   )

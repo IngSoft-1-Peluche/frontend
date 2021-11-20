@@ -89,7 +89,6 @@ import entrada_08 from '../../assets/imagenes/entrada_08.jpg';
 
 const Tablero = (params) => {
 
-    var usuario = JSON.parse(sessionStorage.getItem('logueado'));
 
     useEffect(() => {
         cambiar()

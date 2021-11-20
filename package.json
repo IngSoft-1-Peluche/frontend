@@ -42,7 +42,12 @@
   "devDependencies": {
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
+    "chai": "^4.3.4",
     "enzyme": "^3.11.0",
-    "enzyme-adapter-react-16": "^1.15.6"
+    "enzyme-adapter-react-16": "^1.15.6",
+    "msw": "^0.35.0",
+    "redux": "^4.1.2",
+    "sinon": "^12.0.1",
+    "urls": "^0.0.4"
   }
 }

@@ -11,5 +11,5 @@ test('Modulo renderiza correctamente', async () => {
     await component.findByText('Condesa')
     await component.findByText('Ama de llaves')
     await component.findByText('Frankenstein')
-    await component.findByText('Realizar acusacion')
+    await component.findByText('Realizar sospecha')
 })

@@ -57,20 +57,14 @@ const Juego = (params) => {
                 const error = `SISTEMA: ${prueba.data.message}`
                 setMensaje([...mensaje, error])
                 return;
-
-
             case 'mostrar_cartas':
                 const datos = prueba.data.cartas
                 setCartasJu(datos)
-                return;
-            case 'acuso':
-                setEstado(prueba.data.lista_jugadores)
                 return;
             case 'estado_jugadores':
                 setEstado(prueba.data.lista_jugadores)
                 setEstadoTurno(prueba.data.lista_jugadores.find(elem => elem.id_jugador == usuario.id_jugador).estado_turno)
                 return;
-
             case 'acuse':
                 const resultado_acuse = prueba.data.message
                 if (resultado_acuse == "ganaste") {
@@ -133,7 +127,7 @@ const Juego = (params) => {
                 <div>
 
 
-                    <SalaChat ws={ws} mensaje={mensaje} />
+
                     <Informe />
                     <ApodoJugadores estado={estado} />
                     {(estadoTurno === "A" || estadoTurno === "SA" || estadoTurno === "F") && <BotonTerminarTurno ws={ws} />}
@@ -143,7 +137,9 @@ const Juego = (params) => {
                     {estadoTurno === "SA" && <Sospechar ws={ws} />}
                     {(estadoTurno === "A" || estadoTurno === "SA") && <Acusar ws={ws} />}
                     {estadoTurno === "MS" && <ResponderSospecha ws={ws} cartas={cartasJu} sospecha={sospecha} sospecha_en_curso={sospecha_en_curso} responder={responder} />}
-
+                </div>
+                <div>
+                    <SalaChat ws={ws} mensaje={mensaje} />
                 </div>
             </div>
             <div>

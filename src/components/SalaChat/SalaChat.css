@@ -22,6 +22,18 @@
   word-break: normal;
 }
 
+#chats .red {
+  color: red;
+}
+
+#chats .blue {
+  color: blue;
+}
+
+#chats .black {
+  color: black;
+}
+
 #chats .chat-body {
   position: absolute;
   width: 50%;

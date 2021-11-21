@@ -46,7 +46,7 @@ const SalaChat = (parametros) => {
                             <ReactScrollableFeed>
 
                                 {mensaje.map((men, i) => (
-                                    <p className="mensajes" key={i}>{men}</p>
+                                    <p className={men.color} key={i}>{men.message}</p>
                                 ))}
 
                             </ReactScrollableFeed>

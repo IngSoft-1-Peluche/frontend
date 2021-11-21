@@ -50,6 +50,7 @@ const PreSala = (parametros) => {
 
             case 'iniciada':
                 history.push("/juego")
+                ws.close();
                 return;
 
             case 'jugador_desconectado_lobby':

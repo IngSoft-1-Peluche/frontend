@@ -7,7 +7,9 @@ import Tablero from '../Tablero/Tablero';
 import ApodoJugadores from '../Tablero/apodo';
 import ResponderSospecha from '../Sospecha/Responder';
 import Informe from '../Informe/Informe';
+import { SalaChat } from '../SalaChat';
 import BotonTerminarTurno from '../TerminarTurno/BotonTerminarTurno.js';
+
 
 const Juego = (params) => {
 
@@ -23,35 +25,58 @@ const Juego = (params) => {
     }
 
     const [estado, setEstado] = useState([])
+
+   
+    const [casillasDisponibles, setCasillasDisponibles] = useState([])
+    
+    
+   
+
     const [casillasDisponibles, setCasillasDisponibles] = useState([])
     const [estadoTurno, setEstadoTurno] = useState("");
+
     const [cartasJu, setCartasJu] = useState([null]);
     const [sospecha, setSospecha] = useState(datosPartidasDefault);
     const [responder, setResponder] = useState(false)
     const [sospecha_en_curso, setSospechaEnCurso] = useState(false)
+    const [mensaje, setMensaje] = useState([])
+
+
+
+
 
 
     ws.onmessage = function (event) {
         const prueba = JSON.parse(event.data)
         switch (prueba.action) {
             case 'tire_dado':
+
                 const respuesta = prueba.data.casillas_a_mover
                 setCasillasDisponibles(respuesta)
                 return;
             case 'me_movi':
                 setCasillasDisponibles([])
+
+     
                 return;
+            case 'error_imp':
+                const error = `SISTEMA: ${prueba.data.message}`
+                setMensaje([...mensaje, error])
+                return;
+
+            
             case 'mostrar_cartas':
                 const datos = prueba.data.cartas
                 setCartasJu(datos)
                 return;
             case 'acuso':
-                setEstado(prueba.data.lista_jugadores)
+                setEstado(prueba.data.lista_jugadores)          
                 return;
             case 'estado_jugadores':
                 setEstado(prueba.data.lista_jugadores)
                 setEstadoTurno(prueba.data.lista_jugadores.find(elem => elem.id_jugador == usuario.id_jugador).estado_turno)
                 return;
+
             case 'acuse':
                 const resultado_acuse = prueba.data.message
                 if (resultado_acuse == "ganaste") {
@@ -74,11 +99,29 @@ const Juego = (params) => {
                 setSospechaEnCurso(false)
                 setResponder(false)
                 return;
+
+            case 'mensaje_sistema':
+                console.log(prueba.data.message)
+                const menSis = `SISTEMA: ${prueba.data.message}`
+                setMensaje([...mensaje, menSis])
+                return;
+            case 'escribio_chat':
+                const chat = `${prueba.data.nombre_jugador}: ${prueba.data.message}`
+                setMensaje([...mensaje, chat])
+
             default:
                 console.log("default")
                 return;
         }
+
     }
+
+
+
+
+
+    
+
 
     return (
         <>
@@ -87,6 +130,9 @@ const Juego = (params) => {
                     <Tablero ws={ws} estado={estado} casillasDisponibles={casillasDisponibles} />
                 </div>
                 <div>
+
+             
+
                     <Informe />
                     <ApodoJugadores estado={estado} />
                     {(estadoTurno == "A" || estadoTurno == "SA" || estadoTurno == "F") && <BotonTerminarTurno ws={ws} />}
@@ -96,6 +142,7 @@ const Juego = (params) => {
                     {estadoTurno == "SA" && <Sospechar ws={ws} />}
                     {(estadoTurno == "A" || estadoTurno == "SA") && <Acusar ws={ws} />}
                     {estadoTurno == "MS" && <ResponderSospecha ws={ws} cartas={cartasJu} sospecha={sospecha} sospecha_en_curso={sospecha_en_curso} responder={responder} />}
+                    <SalaChat ws={ws} mensaje={mensaje} />
                 </div>
             </div>
             <div>

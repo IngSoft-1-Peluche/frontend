@@ -107,11 +107,14 @@ const Juego = (params) => {
                 setResponder(false)
                 return;
             case 'mensaje_sistema':
-                const menSis = `SISTEMA: \n ${prueba.data.message}`
+                console.log(prueba.data.message)
+                const menSis = `SISTEMA: ${prueba.data.message}`
                 setMensaje([...mensaje, menSis])
+                return;
             case 'escribio_chat':
-                const chat = `${prueba.data.nombre_jugador}: \n ${prueba.data.message}`
+                const chat = `${prueba.data.nombre_jugador}: ${prueba.data.message}`
                 setMensaje([...mensaje, chat])
+                return;
             default:
                 console.log("default")
                 return;

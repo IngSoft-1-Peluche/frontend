@@ -53,10 +53,6 @@ const Juego = (params) => {
 
 
                 return;
-            case 'error_imp':
-                const error = `SISTEMA: ${prueba.data.message}`
-                setMensaje([...mensaje, error])
-                return;
             case 'mostrar_cartas':
                 const datos = prueba.data.cartas
                 setCartasJu(datos)
@@ -90,15 +86,31 @@ const Juego = (params) => {
 
             case 'mensaje_sistema':
                 console.log(prueba.data.message)
-                const menSis = `SISTEMA: ${prueba.data.message}`
+                const menSis = {
+                    message: `SISTEMA: ${prueba.data.message}`,
+                    color: "mensaje blue" 
+                }
                 setMensaje([...mensaje, menSis])
                 return;
+            case 'error_imp':
+                const error = {
+                    message: `SISTEMA: ${prueba.data.message}`,
+                    color: "mensaje red" 
+                }
+                setMensaje([...mensaje, error])
+                return;
             case 'escribio_chat':
-                const chat = `${prueba.data.nombre_jugador}: ${prueba.data.message}`
+                const chat = {
+                    message: `${prueba.data.nombre_jugador}: ${prueba.data.message}`,
+                    color: "mensaje black" 
+                }
                 setMensaje([...mensaje, chat])
                 return;
             case 'carta_seleccionada':
-                const carta = `SISTEMA: ${prueba.data.message}`
+                const carta = {
+                    message: `SISTEMA: ${prueba.data.message}`,
+                    color: "mensaje red" 
+                }
                 setMensaje([...mensaje, carta])
                 return;
 

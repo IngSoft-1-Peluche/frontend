@@ -43,7 +43,11 @@ const PreSala = (parametros) => {
 
                 const datos = info.data
                 setPartida(datos)
-                setMensaje([...mensaje, `SISTEMA: El jugador ${datos.jugador_conectado} se ha unido`])
+                const mensCon = {
+                    message: `SISTEMA: El jugador ${datos.jugador_conectado} se ha unido`,
+                    color: "mensaje blue" 
+                }
+                setMensaje([...mensaje, mensCon])
 
 
                 return;
@@ -59,12 +63,19 @@ const PreSala = (parametros) => {
 
                 setPartida(desconecta)
                 console.log(desconecta)
-                setMensaje([...mensaje, `SISTEMA: El jugador ${desconecta.jugador_desconectado} ha abandonado la sala`])
+                const mensDesc = {
+                    message: `SISTEMA: El jugador ${desconecta.jugador_desconectado} ha abandonado la sala`,
+                    color: "mensaje blue" 
+                }
+                setMensaje([...mensaje, mensDesc])
 
                 return;
             case 'escribio_chat':
 
-                const chat = `${info.data.nombre_jugador}:  ${info.data.message}`
+                const chat = {
+                    message: `${info.data.nombre_jugador}:  ${info.data.message}`,
+                    color: "mensaje black" 
+                }
                 setMensaje([...mensaje, chat])
 
                 return;

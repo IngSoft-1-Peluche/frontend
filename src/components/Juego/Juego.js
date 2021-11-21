@@ -45,7 +45,6 @@ const Juego = (params) => {
         const prueba = JSON.parse(event.data)
         switch (prueba.action) {
             case 'tire_dado':
-
                 const respuesta = prueba.data.casillas_a_mover
                 setCasillasDisponibles(respuesta)
                 return;
@@ -103,6 +102,10 @@ const Juego = (params) => {
             case 'escribio_chat':
                 const chat = `${prueba.data.nombre_jugador}: ${prueba.data.message}`
                 setMensaje([...mensaje, chat])
+                return;
+            case 'carta_seleccionada':
+                const carta = `SISTEMA: ${prueba.data.message}`
+                setMensaje([...mensaje, carta])
                 return;
 
             default:

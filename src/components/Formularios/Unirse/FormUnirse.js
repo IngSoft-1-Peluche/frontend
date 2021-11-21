@@ -45,10 +45,18 @@ const FormUnirse = () => {
                     placeholder="Ingrese su apodo"
                     {...register("apodo",{
                         required:{ value: true, message: 'Apodo obligatorio'},
+                        validate:{ value: (value => {
+                            if (value != 'sistema' && value != 'SISTEMA'){
+                                return true
+                            }else{
+                                alert("Tu nombre no puede ser " + value)
+                                return false
+                            }
+                        })},
                         maxLength: {value: 15, message: '15 caracteres máximo'}
                     })
                     }
-                />     
+                />   
                 <span className="text-danger text-small d-block mb-2">
                     {errors?.apodo?.message}
                 </span>

@@ -108,10 +108,7 @@ const Juego = (params) => {
                 setMensaje([...mensaje, carta])
                 return;
 
-            case 'carta_seleccionada':
-                const carta = `SISTEMA: ${prueba.data.message}`
-                setMensaje([...mensaje, carta])
-                return;
+
 
             default:
                 console.log("default")

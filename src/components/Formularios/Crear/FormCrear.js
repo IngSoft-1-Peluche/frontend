@@ -47,10 +47,19 @@ const FormCrear = () => {
       <label htmlFor="apodo">Apodo:</label>
       <input
         data-testid = "casilla_apodo"
-        {...register("apodo", {
-          required: "Apodo obligatorio",
-          maxLength: { value: 20, message: "20 caracteres máximo" }
-        })}
+        {...register("apodo",{
+          required:{ value: true, message: 'Apodo obligatorio'},
+          validate:{ value: (value => {
+              if (value != 'sistema' && value != 'SISTEMA'){
+                  return true
+              }else{
+                  alert("Tu nombre no puede ser " + value)
+                  return false
+              }
+          })},
+          maxLength: {value: 15, message: '15 caracteres máximo'}
+      })
+      }
       />
       <div>
       {errors.apodo && <p className="text-danger text-small d-block mb-2">{errors.apodo.message}</p>}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Acusar from '../Acusar/Acusar';
 import BotonDado from '../Dado/BotonDado';
 import CartasRepartidas from '../MostrarCartas/CartasRepartidas';
@@ -26,11 +26,6 @@ const Juego = (params) => {
 
     const [estado, setEstado] = useState([])
 
-   
-    const [casillasDisponibles, setCasillasDisponibles] = useState([])
-    
-    
-   
 
     const [casillasDisponibles, setCasillasDisponibles] = useState([])
     const [estadoTurno, setEstadoTurno] = useState("");
@@ -57,20 +52,20 @@ const Juego = (params) => {
             case 'me_movi':
                 setCasillasDisponibles([])
 
-     
+
                 return;
             case 'error_imp':
                 const error = `SISTEMA: ${prueba.data.message}`
                 setMensaje([...mensaje, error])
                 return;
 
-            
+
             case 'mostrar_cartas':
                 const datos = prueba.data.cartas
                 setCartasJu(datos)
                 return;
             case 'acuso':
-                setEstado(prueba.data.lista_jugadores)          
+                setEstado(prueba.data.lista_jugadores)
                 return;
             case 'estado_jugadores':
                 setEstado(prueba.data.lista_jugadores)
@@ -108,6 +103,7 @@ const Juego = (params) => {
             case 'escribio_chat':
                 const chat = `${prueba.data.nombre_jugador}: ${prueba.data.message}`
                 setMensaje([...mensaje, chat])
+                return;
 
             default:
                 console.log("default")
@@ -120,7 +116,7 @@ const Juego = (params) => {
 
 
 
-    
+
 
 
     return (
@@ -131,18 +127,18 @@ const Juego = (params) => {
                 </div>
                 <div>
 
-             
 
+                    <SalaChat ws={ws} mensaje={mensaje} />
                     <Informe />
                     <ApodoJugadores estado={estado} />
-                    {(estadoTurno == "A" || estadoTurno == "SA" || estadoTurno == "F") && <BotonTerminarTurno ws={ws} />}
+                    {(estadoTurno === "A" || estadoTurno === "SA" || estadoTurno === "F") && <BotonTerminarTurno ws={ws} />}
                 </div>
                 <div>
-                    {estadoTurno == "D" && <BotonDado ws={ws} />}
-                    {estadoTurno == "SA" && <Sospechar ws={ws} />}
-                    {(estadoTurno == "A" || estadoTurno == "SA") && <Acusar ws={ws} />}
-                    {estadoTurno == "MS" && <ResponderSospecha ws={ws} cartas={cartasJu} sospecha={sospecha} sospecha_en_curso={sospecha_en_curso} responder={responder} />}
-                    <SalaChat ws={ws} mensaje={mensaje} />
+                    {estadoTurno === "D" && <BotonDado ws={ws} />}
+                    {estadoTurno === "SA" && <Sospechar ws={ws} />}
+                    {(estadoTurno === "A" || estadoTurno === "SA") && <Acusar ws={ws} />}
+                    {estadoTurno === "MS" && <ResponderSospecha ws={ws} cartas={cartasJu} sospecha={sospecha} sospecha_en_curso={sospecha_en_curso} responder={responder} />}
+
                 </div>
             </div>
             <div>

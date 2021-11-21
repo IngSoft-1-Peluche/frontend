@@ -29,25 +29,27 @@ const ResponderSospecha = (params) => {
         <h4>El jugador {sospecha.nombre_sospechador} sospecho lo siguiente:</h4>
         
         {responder ? <p>Te toca responder la sospecha, selecciona que carta deseas mostrar:</p> : <p>Sospecha en curso</p>}
-        
+        <div className="flex-container">
         {(sospecha.cartas_sospechadas.map(carta => (
           <div className="flex-div" key={carta}>
-            <p>{carta}</p>
-           
+             
             {responder ? (
               <div>
               <img className="brightness" src={`/assets/${carta}.png`} width="90" height="137" 
                                               onClick={() => setEleg({ nombre: carta, elegido: true })} />
-              
+                <p>{carta}</p> 
               </div>
             ) : (
               <div>
                 <img className="brightness" src={`/assets/${carta}.png`} width="90" height="137" />
+                <p>{carta}</p> 
               </div>
             )
             } 
           </div>)))
-          }      
+          }
+          </div>
+
           {eleg.elegido && <button onClick={respuesta_sospecha} >
                 Elegir {eleg.nombre}
           </button>}

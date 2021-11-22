@@ -57,7 +57,6 @@ test('Intentar crear una partida sin escribir apodo ni nombre ', async () => {
     const apiRequests = jest.fn();
     server.use(
         rest.post('http://localhost:8000/partidas/', (req, res, ctx) => {
-            console.log(req)
             apiRequests()
             return res(ctx.status(200), ctx.json(MOCK_POST))
         }),

@@ -26,7 +26,6 @@ const PreSala = (parametros) => {
 
 
     ws.onerror = () => {
-        console.log("jugador desconectado")
         history.push("/")
         return;
     }

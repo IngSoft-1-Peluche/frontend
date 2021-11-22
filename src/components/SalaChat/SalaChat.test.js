@@ -6,12 +6,11 @@ import SalaChat from './SalaChat';
 
 test('Modulo renderiza correctamente', async () => {
     const ws = ""
-    const mensaje = ['SISTEMA: Un jugador se ha unido', 'SegundoJugador: Hola', 'PrimerJugador: Hola', 'SegundoJugador: Chau']
+    const mensaje = [{message:'SISTEMA: Un jugador se ha unido'}, {message:'SegundoJugador: Hola'}, {message:'PrimerJugador: Hola'}, {message:'SegundoJugador: Chau'}]
     const component = render(<SalaChat ws={ws} mensaje={mensaje} />)
     await component.findByText('Sala de chat')
-    mensaje.forEach(mens =>
-        component.getByText(mens)
+    mensaje.forEach(mens  =>
+        component.getByText(mens.message),
     )
     await component.findByText('Enviar')
-
 })

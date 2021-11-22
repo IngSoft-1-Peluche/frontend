@@ -3,7 +3,6 @@ import { render } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect';
 import Responder from './Responder';
 
-//ws={ws} cartas={cartasJu} sospecha={sospecha} sospecha_en_curso={sospecha_en_curso} responder={responder}
 test('Modulo renderiza correctamente cuando me toca responder la sospecha y tengo 2 cartas', async () => {
     //Parametros para el test
     const responder = true

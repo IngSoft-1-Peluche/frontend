@@ -91,7 +91,6 @@ const Juego = (params) => {
                 return;
 
             case 'mensaje_sistema':
-                console.log(prueba.data.message)
                 const menSis = {
                     message: `SISTEMA: ${prueba.data.message}`,
                     color: "mensaje blue"
@@ -124,7 +123,6 @@ const Juego = (params) => {
                 return;
 
             default:
-                console.log("default")
                 return;
         }
     }

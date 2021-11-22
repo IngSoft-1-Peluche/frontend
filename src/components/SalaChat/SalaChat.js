@@ -17,7 +17,6 @@ const SalaChat = (parametros) => {
         const mensaje = JSON.stringify({ action: 'escribe_chat', data: datos })
         ws.send(mensaje)
         e.target.reset()
-        console.log(mensaje)
     }
 
 

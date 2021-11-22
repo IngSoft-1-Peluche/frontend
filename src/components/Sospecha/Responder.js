@@ -17,7 +17,6 @@ const ResponderSospecha = (params) => {
 
   const respuesta_sospecha = () => {
     const data = JSON.stringify({ action: 'respuesta_sospecha', data: eleg.nombre })
-    console.log(data)
     ws.send(data)
     setEleg(false)
   }

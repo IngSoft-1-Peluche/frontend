@@ -20,6 +20,4 @@ test('Modulo renderiza correctamente', async () => {
     const component = render(<Apodo estado={estado} />)
     await component.findByText('PrimerJugador :')
     await component.findByText('SegundoJugador :')
-    screen.debug()
-
 })

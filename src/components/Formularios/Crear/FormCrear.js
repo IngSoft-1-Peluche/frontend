@@ -1,36 +1,32 @@
 import React from 'react';
-import { useForm } from "react-hook-form";
+import { useForm } from 'react-hook-form';
 import 'bootstrap/dist/css/bootstrap.css';
 
 import { useHistory } from 'react-router-dom';
 
-
-const FormCrear = () => {
-
+const FormCrear = function () {
   const history = useHistory();
 
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
   } = useForm();
 
   const onSubmit = async (data) => {
-
-    const respuesta = await fetch("http://localhost:8000/partidas/", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data)
-    }).then(respuesta => respuesta.json());
+    const respuesta = await fetch('http://localhost:8000/partidas/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    }).then((respuesta) => respuesta.json());
 
     window.sessionStorage.setItem('logueado', JSON.stringify({
       apodo: respuesta.apodo,
       id_jugador: respuesta.id_jugador,
-      creador: true
-    }))
+      creador: true,
+    }));
 
-    history.push("/salaEsp");
-
+    history.push('/salaEsp');
   };
 
   return (
@@ -38,9 +34,9 @@ const FormCrear = () => {
       <label htmlFor="nombre_partida">Nombre de la partida:</label>
       <input
         data-testid="casilla_nombre"
-        {...register("nombre_partida", {
-          required: "Nombre de partida obligatorio",
-          maxLength: { value: 20, message: "20 caracteres máximo" }
+        {...register('nombre_partida', {
+          required: 'Nombre de partida obligatorio',
+          maxLength: { value: 20, message: '20 caracteres máximo' },
         })}
         id="firstName"
       />
@@ -50,19 +46,18 @@ const FormCrear = () => {
       <label htmlFor="apodo">Apodo:</label>
       <input
         data-testid="casilla_apodo"
-        {...register("apodo", {
+        {...register('apodo', {
           required: { value: true, message: 'Apodo obligatorio' },
           validate: {
-            value: (value => {
+            value: (value) => {
               if (value !== 'sistema' && value !== 'SISTEMA') {
-                return true
-              } else {
-                alert("Tu nombre no puede ser " + value)
-                return false
+                return true;
               }
-            })
+              alert(`Tu nombre no puede ser ${value}`);
+              return false;
+            },
           },
-          maxLength: { value: 15, message: '15 caracteres máximo' }
+          maxLength: { value: 15, message: '15 caracteres máximo' },
         })
         }
       />
@@ -72,6 +67,6 @@ const FormCrear = () => {
       <input type="submit" value="Crear partida" />
     </form>
   );
-}
+};
 
 export default FormCrear;

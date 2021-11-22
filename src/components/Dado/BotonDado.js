@@ -1,4 +1,5 @@
 import React from 'react';
+import 'bootstrap/dist/css/bootstrap.css';
 
 const BotonDado = (params) => {
 
@@ -9,7 +10,7 @@ const BotonDado = (params) => {
   }
 
   return (
-    <button onClick={tirarDado}>
+    <button className="btn btn-primary" onClick={tirarDado}>
       Tirar el dado
     </button>
   )

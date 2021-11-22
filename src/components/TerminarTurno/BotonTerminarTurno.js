@@ -1,4 +1,5 @@
 import React from 'react';
+import 'bootstrap/dist/css/bootstrap.css';
 
 const BotonTerminarTurno = (params) => {
 
@@ -9,7 +10,7 @@ const BotonTerminarTurno = (params) => {
     }
 
     return (
-        <button onClick={terminarTurno}>
+        <button className="btn btn-primary" onClick={terminarTurno}>
             Terminar turno
         </button>
     )

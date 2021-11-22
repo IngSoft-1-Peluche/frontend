@@ -25,7 +25,7 @@ const Acusar = (params) => {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form className = "borde" onSubmit={handleSubmit(onSubmit)}>
       <label htmlFor="carta_victima">Elegí una víctima:</label>
       <select {...register("carta_victima")} >
         <option value="Conde">Conde</option>
@@ -63,9 +63,9 @@ const Acusar = (params) => {
       </div>
 
       <input type="submit" value="Realizar acusacion" />
-      {elegidas ? (
+      {elegidas && (
         <h4>Usted eligio las cartas: {cartasAcus.carta_monstruo} , {cartasAcus.carta_victima} y {cartasAcus.carta_recinto}</h4>
-      ) : (<h4>Elija</h4>)}
+      )}
     </form>
   );
 }

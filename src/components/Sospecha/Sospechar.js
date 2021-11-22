@@ -27,7 +27,7 @@ const Sospechar = (params) => {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form  className = "borde" onSubmit={handleSubmit(onSubmit)}>
       <label htmlFor="carta_victima">Elegí una víctima:</label>
       <select {...register("carta_victima")} >
         <option value="Conde">Conde</option>
@@ -49,9 +49,9 @@ const Sospechar = (params) => {
         </select>
       </div>
       <input type="submit" value="Realizar sospecha" />
-      {elegidas ? (
+      {elegidas && (
         <h4>Usted eligio las cartas: {cartasSos.carta_monstruo} y {cartasSos.carta_victima}</h4>
-      ) : (<h4>Elija</h4>)}
+      )}
     </form>
 
   );

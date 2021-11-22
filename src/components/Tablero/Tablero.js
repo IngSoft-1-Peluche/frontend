@@ -263,9 +263,7 @@ const Tablero = (params) => {
             </div>
 
         </>
-
     )
-
 }
 
 export default Tablero;

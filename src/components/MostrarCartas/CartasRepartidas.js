@@ -25,7 +25,6 @@ const CartasRepartidas = (params) => {
         </div>
       </div>
     </>
-
   )
 }
 

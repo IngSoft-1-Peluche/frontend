@@ -15,7 +15,6 @@ function App() {
 
         <Router>
             <Switch>
-
                 <Route exact path="/partidasDis" component={TablaDis} />
                 <Route exact path="/FormCrear" component={FormCrear} />
                 <Route exact path="/FormU/:idPart/:nomPart" component={FormUnirse} />
@@ -23,7 +22,6 @@ function App() {
                 <Route exact path="/juego" component={Home} />
                 <Route exact path="/" component={PagInicio} />
                 <Route path="*">{<h1>404 Pagina no encontrada</h1>}</Route>
-
             </Switch>
         </Router>
 

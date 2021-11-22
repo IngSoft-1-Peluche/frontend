@@ -6,7 +6,6 @@ import 'bootstrap/dist/css/bootstrap.css';
 const TablaDisp = () => {
 
 
-
     const datosPartidasDefault = [
         { id_partida: '', nombre_partida: '', cantidad_jugadores: '' }
     ];
@@ -21,7 +20,6 @@ const TablaDisp = () => {
 
 
     useEffect(() => {
-
         obtenerPartidas()
     }, [])
 
@@ -42,7 +40,6 @@ const TablaDisp = () => {
                     <th>
                         <button onClick={recargar} >Actualizar</button>
                     </th>
-
                 </tr>
             </thead>
             <tbody>
@@ -57,18 +54,13 @@ const TablaDisp = () => {
                                 </Link>
                             </td>
                         </tr>
-                    )
-                    )
-                ) : (
+                    ))) : (
                     <tr>
                         <td colSpan={3}>No hay partidas disponibles</td>
                     </tr>
-                )
-                }
-
+                )}
             </tbody>
         </table>
-
     );
 }
 

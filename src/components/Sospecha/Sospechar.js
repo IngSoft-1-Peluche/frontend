@@ -12,16 +12,16 @@ const Sospechar = (params) => {
   const [elegidas, SetElegidas] = useState(false)
 
   const ws = params.ws
-  
+
   const {
     register,
     handleSubmit,
   } = useForm();
 
   const onSubmit = (info) => {
-    
+
     SetCartasSos(info)
-    const data = JSON.stringify({action:'sospechan', data: info})
+    const data = JSON.stringify({ action: 'sospechan', data: info })
     SetElegidas(true)
     ws.send(data)
   }
@@ -38,23 +38,23 @@ const Sospechar = (params) => {
         <option value="Jardinero">Jardinero</option>
       </select>
       <div>
-      <label htmlFor="carta_monstruo">Elegí un monstruo:</label>
-      <select {...register("carta_monstruo")} >
-        <option value="Dracula">Drácula</option>
-        <option value="Frankenstein">Frankenstein</option>
-        <option value="Hombre lobo">Hombre lobo</option>
-        <option value="Fantasma">Fantasma</option>
-        <option value="Momia">Momia</option>
-        <option value="Dr. Jekyll Hyde">Dr. Jekyll Hyde</option>
-      </select>
+        <label htmlFor="carta_monstruo">Elegí un monstruo:</label>
+        <select {...register("carta_monstruo")} >
+          <option value="Dracula">Drácula</option>
+          <option value="Frankenstein">Frankenstein</option>
+          <option value="Hombre lobo">Hombre lobo</option>
+          <option value="Fantasma">Fantasma</option>
+          <option value="Momia">Momia</option>
+          <option value="Dr. Jekyll Hyde">Dr. Jekyll Hyde</option>
+        </select>
       </div>
       <input type="submit" value="Realizar sospecha" />
       {elegidas ? (
         <h4>Usted eligio las cartas: {cartasSos.carta_monstruo} y {cartasSos.carta_victima}</h4>
-        ):(<h4>Elija</h4>)}
+      ) : (<h4>Elija</h4>)}
     </form>
-   
+
   );
 }
 
-export default Sospechar ;
+export default Sospechar;

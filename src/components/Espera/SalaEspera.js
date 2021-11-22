@@ -1,9 +1,5 @@
 import React from 'react';
-
-
-
 import 'bootstrap/dist/css/bootstrap.css';
-
 
 
 const SalaEspera = (params) => {
@@ -18,7 +14,6 @@ const SalaEspera = (params) => {
 
 
     const iniciar = () => {
-
         const mensaje = JSON.stringify({ action: 'iniciar_partida', data: '' })
         ws.send(mensaje)
     }
@@ -32,16 +27,12 @@ const SalaEspera = (params) => {
             </h2>
             <h2 className="bg-dark text-white">
                 Jugador : {logueado.apodo}
-
             </h2>
-
             <table className="table table-striped table-dark">
 
                 <thead className="thead-dark">
                     <tr>
-
                         <th scope="col">Apodo</th>
-
 
                         {partida.jugadores.length < 2 && logueado.creador ? (
                             <th>Esperando que se unan mas jugadores</th>
@@ -60,7 +51,6 @@ const SalaEspera = (params) => {
                             <></>
                         )}
                         </th>
-
                     </tr>
                 </thead>
                 <tbody>
@@ -81,12 +71,8 @@ const SalaEspera = (params) => {
                         </tr>
                     )
                     }
-
-
-
                 </tbody>
             </table>
-
         </div>
     );
 }

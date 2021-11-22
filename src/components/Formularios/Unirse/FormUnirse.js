@@ -64,9 +64,7 @@ const FormUnirse = () => {
                 <span className="text-danger text-small d-block mb-2">
                     {errors?.apodo?.message}
                 </span>
-
                 <button className="btn btn-dark">Confirmar</button>
-
             </form>
         </div>
     )

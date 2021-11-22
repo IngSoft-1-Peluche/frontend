@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import 'bootstrap/dist/css/bootstrap.css';
 
-const Sospechar = function (params) {
-  const [cartasSos, SetCartasSos] = useState([null]);
-
+const Acusar = function (params) {
+  const [cartasAcus, SetCartasAcus] = useState([null]);
   const [elegidas, SetElegidas] = useState(false);
 
   const { ws } = params;
@@ -15,8 +14,8 @@ const Sospechar = function (params) {
   } = useForm();
 
   const onSubmit = (info) => {
-    SetCartasSos(info);
-    const data = JSON.stringify({ action: 'sospechan', data: info });
+    SetCartasAcus(info);
+    const data = JSON.stringify({ action: 'acusar', data: info });
     SetElegidas(true);
     ws.send(data);
   };
@@ -32,6 +31,7 @@ const Sospechar = function (params) {
         <option value="Doncella">Doncella</option>
         <option value="Jardinero">Jardinero</option>
       </select>
+
       <div>
         <label htmlFor="carta_monstruo">Elegí un monstruo:</label>
         <select {...register('carta_monstruo')}>
@@ -43,19 +43,36 @@ const Sospechar = function (params) {
           <option value="Dr. Jekyll Mr Hyde">Dr. Jekyll Mr Hyde</option>
         </select>
       </div>
-      <input type="submit" value="Realizar sospecha" />
+
+      <div>
+        <label htmlFor="carta_recinto">Elegí un recinto:</label>
+        <select {...register('carta_recinto')}>
+          <option value="Alcoba">Alcoba</option>
+          <option value="Biblioteca">Biblioteca</option>
+          <option value="Bodega">Bodega</option>
+          <option value="Cochera">Cochera</option>
+          <option value="Laboratorio">Laboratorio</option>
+          <option value="Panteon">Panteon</option>
+          <option value="Salon">Salon</option>
+          <option value="Vestibulo">Vestibulo</option>
+        </select>
+      </div>
+
+      <input type="submit" value="Realizar acusacion" />
       {elegidas && (
         <h4>
           Usted eligio las cartas:
-          {cartasSos.carta_monstruo}
+          {cartasAcus.carta_monstruo}
+          {' '}
+          ,
+          {cartasAcus.carta_victima}
           {' '}
           y
-          {cartasSos.carta_victima}
+          {cartasAcus.carta_recinto}
         </h4>
       )}
     </form>
-
   );
 };
 
-export default Sospechar;
+export default Acusar;

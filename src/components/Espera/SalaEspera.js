@@ -1,87 +1,86 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router';
-
+import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
-import IniciarPartida from '../Iniciar/IniciarPartida';
 
+const SalaEspera = function (params) {
+  const logueado = JSON.parse(sessionStorage.getItem('logueado'));
 
+  const { ws } = params;
 
-const SalaEspera = () => {
+  const { partida } = params;
 
-    const { id_p }= useParams();
+  const iniciar = () => {
+    const mensaje = JSON.stringify({ action: 'iniciar_partida', data: '' });
+    ws.send(mensaje);
+  };
 
-    var logueado = JSON.parse(sessionStorage.getItem('logueado'));
-       
-    const datosPartidasDefault = {id_partida: null, nombre: '', jugadores: [{
-          "id_jugador": null,
-          "apodo": "",
-          "orden": null,
-          "en_turno": true
-        }]
-    };
-      
-    const [partida, setPartida] = useState(datosPartidasDefault);
-   
-    const obtenerDatos = async () => {
-        const data = await fetch(`http://localhost:8000/partidas/${id_p}`)
-        const jugador = await data.json()
-       
-        setPartida(jugador)       
-    }
+  return (
 
-    useEffect(() => {
-      obtenerDatos();
-    }, []);
+    <div>
+      <h2 className="bg-dark text-white">
+        Sala de espera de la partida
+        {' '}
+        {partida.nombre_partida}
+      </h2>
+      <h2 className="bg-dark text-white">
+        Jugador :
+        {' '}
+        {logueado.apodo}
+      </h2>
+      <table className="table table-striped table-dark">
 
-    return (
+        <thead className="thead-dark">
+          <tr>
+            <th scope="col">Apodo</th>
 
-        <div>
-            <h2 className="bg-dark text-white">
-                Sala de espera de la partida {partida.nombre} 
-            </h2>
-            <h2 className="bg-dark text-white">
-                Jugador : {logueado.apodo}
-            </h2>
-        
-            <table className="table table-striped table-dark">
-        
-            <thead className="thead-dark">
-                <tr>
+            {partida.jugadores.length < 2 && logueado.creador
+              ? (
+                <th>Esperando que se unan mas jugadores</th>
+              )
+              : (
+                <></>
+              )}
+            {!logueado.creador
+              ? (
 
-                    <th scope="col">Apodo</th>
-                    <th></th>
-                    
+                <th>Espere a que se inicie la partida</th>
+              )
+              : (
+                <></>
+              )}
+            <th>
+              {' '}
+              {partida.jugadores.length > 1 && logueado.creador
+                ? (
+                  <button className="btn btn-primary" onClick={iniciar}>Iniciar partida</button>
+                )
+                : (
+                  <></>
+                )}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {partida.jugadores.length > 0
+            ? (
+              partida.jugadores.map((jugador, i) => (
+                <tr key={i} className="table-secondary">
+
+                  <td>{jugador}</td>
+                  <td />
+                  <td />
+
                 </tr>
-            </thead>
-            <tbody>
-                {partida.jugadores.length > 0 ? (
-                    partida.jugadores.map((jugador) => (
-                        <tr key={jugador.id_jugador} className = "table-secondary">                   
-                            
-                            <td>{jugador.apodo}</td>
-                            {logueado.creador && partida.jugadores.length > 1
-                             && (jugador.id_jugador === logueado.id_jugador) ? (
-                                <td><IniciarPartida id={partida.id_partida} id_J={logueado.id_jugador} /></td>
-
-                            ):(
-
-                                <td>Por favor, espere...</td>
-
-                            )}
-                        
-                        </tr>
-                        )
-                    )
-                ) : (
-                    <tr>
-                        <td colSpan = {3}>No hay jugadores</td>
-                    </tr>
-                    )    
-                }           
-            </tbody>
-            </table>
-        </div>
-    );
-}
+              ))
+            )
+            : (
+              <tr>
+                <td colSpan={3}>No hay jugadores</td>
+              </tr>
+            )}
+        </tbody>
+      </table>
+    </div>
+  );
+};
 
 export default SalaEspera;

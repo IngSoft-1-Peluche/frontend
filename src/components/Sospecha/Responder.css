@@ -7,9 +7,9 @@
     width: 100px;
 }
 
-.fondo {
-    background-color: #707070;
-  }
+.fondo_respuesta {
+    background-color: #eb9494;
+}
 
 .brightness:hover { background:rgb(221, 137, 59);}
 .brightness:hover img{ visibility:hidden;}

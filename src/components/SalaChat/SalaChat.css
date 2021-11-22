@@ -1,0 +1,58 @@
+#chats {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 400px;
+}
+
+#chats .chat-header {
+  position: absolute;
+  top: 0;
+  padding: 15px;
+  width: 50%;
+  height: 50px;
+  background: #2f2f2f;
+  color: white;
+  font-weight: bold;
+  border-radius: 5px 5px 0 0;
+}
+
+#chats .mensajes {
+  color: black;
+  word-break: normal;
+}
+
+#chats .red {
+  color: red;
+}
+
+#chats .blue {
+  color: blue;
+}
+
+#chats .black {
+  color: black;
+}
+
+#chats .chat-body {
+  position: absolute;
+  width: 50%;
+  max-width: 800px;
+  height: 298px;
+  top: 50px;
+
+  padding: 10px 10px 0 10px;
+  background: #dedede;
+
+  font-size: 13px;
+}
+
+#chats .chat-footer {
+  position: absolute;
+  height: 50px;
+  width: 50%;
+  bottom: 0;
+  padding: 10px 20px 0 20px;
+  border-top: #cccccc solid 1px;
+  background: #131212;
+}

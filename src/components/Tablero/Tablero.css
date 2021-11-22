@@ -42,11 +42,19 @@
 
 .fondo{
   background-color: black;
-  transform: scale(0.80);  
 }
 
 .dots {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.dot2 {
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  display: inline-block;
+  margin: 0 4px;
+  z-index: 10;
 }

@@ -1,13 +1,13 @@
 import React from 'react';
-import Juego from './Juego';
+import PreSala from './PreSala';
 
-const Home = function () {
+const WsSala = function () {
   const usuario = JSON.parse(sessionStorage.getItem('logueado'));
   const ws = new WebSocket(`ws://localhost:8000/ws/${usuario.id_jugador}`);
 
   return (
-    <Juego ws={ws} />
+    <PreSala ws={ws} />
   );
 };
 
-export default Home;
+export default WsSala;

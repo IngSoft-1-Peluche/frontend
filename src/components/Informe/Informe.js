@@ -1,17 +1,17 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './Informe.css';
 
 const Informe = () => {
 
-  const datosPartidasDefault = { Conde: "?", Hombre_Lobo: "?", Biblioteca: "?", Condesa: "?", Fantasma: "?", Salon: "?", Mayordomo: "?", Momia: "?", Panteon: "?", Ama_de_llaves: "?", Drácula: "?", Bodega: "?", Jardinero: "?", Frankenstein: "?", Vestibulo: "?", Doncella: "?", Dr_Jekyll_Mr_Hyde: "?", Cochera: "?", Alcoba: "?", Laboratorio: "?"  }
+  const datosPartidasDefault = { Conde: "?", Hombre_Lobo: "?", Biblioteca: "?", Condesa: "?", Fantasma: "?", Salon: "?", Mayordomo: "?", Momia: "?", Panteon: "?", Ama_de_llaves: "?", Drácula: "?", Bodega: "?", Jardinero: "?", Frankenstein: "?", Vestibulo: "?", Doncella: "?", Dr_Jekyll_Mr_Hyde: "?", Cochera: "?", Alcoba: "?", Laboratorio: "?" }
   const [estado, setEstado] = useState(datosPartidasDefault)
 
   const handleclick = (event) => {
     setEstado(prevState => ({
       ...prevState,
-      [event.target.id]: (estado[event.target.id]=="?") ? "X" : (estado[event.target.id]=="X" ? "0" : "?")
-  }))
+      [event.target.id]: (estado[event.target.id] === "?") ? "X" : (estado[event.target.id] === "X" ? "0" : "?")
+    }))
   }
 
   return (

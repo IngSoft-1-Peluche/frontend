@@ -56,9 +56,8 @@ test('Unirse a una partida de manera correcta', async () => {
   const apiRequests = jest.fn();
   server.use(
     rest.put('http://localhost:8000/partidas/', (req, res, ctx) => {
-      //console.log(req["body"])
-      //expect(req["body"]["id_partida"]).toBe(null)
-      //expect(req["body"]["apodo"]).toBe('apodoJugador1')
+      expect(req["body"]["id_partida"]).toBe(null)
+      expect(req["body"]["apodo"]).toBe('apodoJugador1')
       apiRequests()
       return res(ctx.status(200), ctx.json([]))
     }),

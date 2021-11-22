@@ -20,10 +20,8 @@ const Acusar = (params) => {
 
     SetCartasAcus(info)
     const data = JSON.stringify({ action: 'acusar', data: info })
-    console.log(data)
     SetElegidas(true)
     ws.send(data)
-    console.log(data)
   }
 
   return (

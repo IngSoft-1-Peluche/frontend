@@ -32,9 +32,7 @@ const ContentWrapper = ({ children, match }) => (
     {children}
   </FormUnirse>
 );
-export default withRouter(ContentWrapper);
 
-// Helper function
 export function renderWithRouterMatch(
   ui,
   {
@@ -56,7 +54,7 @@ test('Unirse a una partida de manera correcta', async () => {
   const apiRequests = jest.fn();
   server.use(
     rest.put('http://localhost:8000/partidas/', (req, res, ctx) => {
-      expect(req["body"]["id_partida"]).toBe(null)
+      expect(req["body"]["id_partida"]).toBe(1)
       expect(req["body"]["apodo"]).toBe('apodoJugador1')
       apiRequests()
       return res(ctx.status(200), ctx.json([]))
@@ -65,10 +63,10 @@ test('Unirse a una partida de manera correcta', async () => {
 
   const component = renderWithRouterMatch(ContentWrapper, {
     route: "/FormU/1/PrimerPartida",
-    path: "/FormU/:id_partida/:apodo"
+    path: "/FormU/:idPart/:nomPart"
   });
 
-  await component.findByText('Definición de apodo para entrar a')
+  await component.findByText('Definición de apodo para entrar a PrimerPartida')
   const casilla_apodo = component.getByPlaceholderText("Ingrese su apodo")
   fireEvent.change(casilla_apodo, { target: { value: 'apodoJugador1' } })
   expect(casilla_apodo.value).toBe('apodoJugador1')
@@ -86,7 +84,7 @@ test('Intentar unirse sin apodo', async () => {
 
   const component = renderWithRouterMatch(ContentWrapper, {
     route: "/FormU/1/PrimerPartida",
-    path: "/FormU/:id_partida/:apodo"
+    path: "/FormU/:idPart/:nomPart"
   });
 
   server.use(

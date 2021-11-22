@@ -6,7 +6,6 @@ import Informe from './Informe';
 test('Modulo renderiza correctamente', async () => {
     const numero = 1
     const component = render(<Informe numero={numero} />)
-    //screen.debug()
     await component.findByText('Condesa')
     await component.findByText('Ama de llaves')
     await component.findByText('Biblioteca')

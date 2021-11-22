@@ -26,8 +26,7 @@ const ResponderSospecha = function (params) {
         <div className="fondo_respuesta">
 
           <h4>
-            El jugador
-            {sospecha.nombre_sospechador}
+            El jugador {sospecha.nombre_sospechador}
             {' '}
             sospecho lo siguiente:
           </h4>

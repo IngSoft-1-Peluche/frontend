@@ -40,7 +40,7 @@ const Sospechar = function (params) {
           <option value="Hombre lobo">Hombre lobo</option>
           <option value="Fantasma">Fantasma</option>
           <option value="Momia">Momia</option>
-          <option value="Dr. Jekyll Hyde">Dr. Jekyll Hyde</option>
+          <option value="Dr. Jekyll Mr Hyde">Dr. Jekyll Mr Hyde</option>
         </select>
       </div>
       <input type="submit" value="Realizar sospecha" />

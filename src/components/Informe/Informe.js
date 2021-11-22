@@ -68,7 +68,7 @@ const Informe = function () {
         <tr>
           <th>Doncella</th>
           <th id="Doncella" onClick={handleclick}>{estado.Doncella}</th>
-          <th>Dr Jekyll Mr Hyde</th>
+          <th>Dr. Jekyll Mr Hyde</th>
           <th id="Dr_Jekyll_Mr_Hyde" onClick={handleclick}>{estado.Dr_Jekyll_Mr_Hyde}</th>
           <th>Cochera</th>
           <th id="Cochera" onClick={handleclick}>{estado.Cochera}</th>

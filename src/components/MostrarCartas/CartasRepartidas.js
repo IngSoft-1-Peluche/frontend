@@ -15,8 +15,7 @@ const CartasRepartidas = function (params) {
 
     <>
       <h4>
-        Cartas de
-        {jugador.apodo}
+        Cartas de {jugador.apodo}
       </h4>
       <div>
         <div className="flex-container">

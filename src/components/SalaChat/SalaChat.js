@@ -5,22 +5,15 @@ import 'bootstrap/dist/css/bootstrap.css';
 import './SalaChat.css'
 
 
-
-
-
 const SalaChat = (parametros) => {
 
     const ws = parametros.ws
     const mensaje = parametros.mensaje
 
-
     const { register, handleSubmit } = useForm();
 
 
-
-
     const onSubmit = (datos, e) => {
-
         const mensaje = JSON.stringify({ action: 'escribe_chat', data: datos })
         ws.send(mensaje)
         e.target.reset()
@@ -39,10 +32,7 @@ const SalaChat = (parametros) => {
                         </div>
                     </div>
                     <div className="toHide">
-
                         <div className="chat-body">
-
-
                             <ReactScrollableFeed>
 
                                 {mensaje.map((men, i) => (
@@ -55,7 +45,6 @@ const SalaChat = (parametros) => {
                             <div className="input-group">
 
                                 <form className="d-inline-flex" onSubmit={handleSubmit(onSubmit)}>
-
                                     <input
                                         className="form-control input-sm chat-input"
                                         name="message"
@@ -65,7 +54,6 @@ const SalaChat = (parametros) => {
                                         })
                                         } />
                                     <button type="submit" className="btn btn-primary">Enviar</button>
-
                                 </form>
                             </div>
                         </div>
@@ -73,7 +61,6 @@ const SalaChat = (parametros) => {
                 </div>
             </div>
         </div>
-
     )
 }
 

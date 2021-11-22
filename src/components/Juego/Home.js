@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Juego from './Juego';
 
-const Home = (params) => {
+const Home = () => {
 
     var usuario = JSON.parse(sessionStorage.getItem('logueado'));
-    const [ws ,setWs] = useState(new WebSocket(`ws://localhost:8000/ws/${usuario.id_jugador}`))
+    const ws = new WebSocket(`ws://localhost:8000/ws/${usuario.id_jugador}`)
 
-    return(
-            <Juego ws={ws}/>
+    return (
+        <Juego ws={ws} />
     )
 }
 

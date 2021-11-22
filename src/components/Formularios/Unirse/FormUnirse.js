@@ -7,35 +7,37 @@ import { useParams, useHistory } from 'react-router-dom';
 
 const FormUnirse = () => {
 
-    const {idPart, nomPart}= useParams();
+    const { idPart, nomPart } = useParams();
 
-    const {register, handleSubmit, formState:{errors}} = useForm();
+    const { register, handleSubmit, formState: { errors } } = useForm();
 
-    const history= useHistory();
+    const history = useHistory();
 
     const onSubmit = async (data) => {
 
-        
-        const enviar ={
+
+        const enviar = {
             id_partida: parseInt(idPart),
             apodo: data.apodo
         }
-       
+
         const respuesta = await fetch("http://localhost:8000/partidas/", {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(enviar)}).then(respuesta => respuesta.json());
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(enviar)
+        }).then(respuesta => respuesta.json());
 
         window.sessionStorage.setItem('logueado', JSON.stringify({
-                                    apodo: respuesta.apodo, 
-                                    id_jugador: respuesta.id_jugador, 
-                                    creador: false}))
-        
+            apodo: respuesta.apodo,
+            id_jugador: respuesta.id_jugador,
+            creador: false
+        }))
+
         history.push("/salaEsp");
     }
 
-    return(
-       
+    return (
+
         <div>
             <h2 className="bg-dark text-white">Definición de apodo para entrar a {nomPart}</h2>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -43,26 +45,26 @@ const FormUnirse = () => {
                     className="form-inline btn-lg btn-secondary"
                     name="apodo"
                     placeholder="Ingrese su apodo"
-                    {...register("apodo",{
-                        required:{ value: true, message: 'Apodo obligatorio'},
-                        validate:{ value: (value => {
-                            if (value != 'sistema' && value != 'SISTEMA'){
-                                return true
-                            }else{
-                                alert("Tu nombre no puede ser " + value)
-                                return false
-                            }
-                        })},
-                        maxLength: {value: 15, message: '15 caracteres máximo'}
+                    {...register("apodo", {
+                        required: { value: true, message: 'Apodo obligatorio' },
+                        validate: {
+                            value: (value => {
+                                if (value !== 'sistema' && value !== 'SISTEMA') {
+                                    return true
+                                } else {
+                                    alert("Tu nombre no puede ser " + value)
+                                    return false
+                                }
+                            })
+                        },
+                        maxLength: { value: 15, message: '15 caracteres máximo' }
                     })
                     }
-                />   
+                />
                 <span className="text-danger text-small d-block mb-2">
                     {errors?.apodo?.message}
                 </span>
-                
-                <button className= "btn btn-dark">Confirmar</button>
-               
+                <button className="btn btn-dark">Confirmar</button>
             </form>
         </div>
     )

@@ -44,40 +44,46 @@ const Juego = (params) => {
     ws.onmessage = function (event) {
         const prueba = JSON.parse(event.data)
         switch (prueba.action) {
+
             case 'tire_dado':
                 const respuesta = prueba.data.casillas_a_mover
                 setCasillasDisponibles(respuesta)
                 return;
+
             case 'me_movi':
                 setCasillasDisponibles([])
-
-
                 return;
+
             case 'mostrar_cartas':
                 const datos = prueba.data.cartas
                 setCartasJu(datos)
                 return;
+
             case 'estado_jugadores':
                 setEstado(prueba.data.lista_jugadores)
-                setEstadoTurno(prueba.data.lista_jugadores.find(elem => elem.id_jugador == usuario.id_jugador).estado_turno)
+                setEstadoTurno(prueba.data.lista_jugadores.find(elem => parseInt(elem.id_jugador) === parseInt(usuario.id_jugador)).estado_turno)
                 return;
+
             case 'acuse':
                 const resultado_acuse = prueba.data.message
-                if (resultado_acuse == "ganaste") {
+                if (resultado_acuse === "ganaste") {
                     alert("Ganaste!!!")
                 }
-                else if (resultado_acuse == "perdiste") {
+                else if (resultado_acuse === "perdiste") {
                     alert("Perdiste :(")
                 }
                 return;
+
             case 'cartas_sospechadas':
                 const datos_sospecha = prueba.data
                 setSospecha(datos_sospecha)
                 setSospechaEnCurso(true)
                 return;
+
             case 'muestra':
                 setResponder(true)
                 return;
+
             case 'sospecha_respondida':
                 setSospecha(datosPartidasDefault)
                 setSospechaEnCurso(false)
@@ -88,47 +94,40 @@ const Juego = (params) => {
                 console.log(prueba.data.message)
                 const menSis = {
                     message: `SISTEMA: ${prueba.data.message}`,
-                    color: "mensaje blue" 
+                    color: "mensaje blue"
                 }
                 setMensaje([...mensaje, menSis])
                 return;
+
             case 'error_imp':
                 const error = {
                     message: `SISTEMA: ${prueba.data.message}`,
-                    color: "mensaje red" 
+                    color: "mensaje red"
                 }
                 setMensaje([...mensaje, error])
                 return;
+
             case 'escribio_chat':
                 const chat = {
                     message: `${prueba.data.nombre_jugador}: ${prueba.data.message}`,
-                    color: "mensaje black" 
+                    color: "mensaje black"
                 }
                 setMensaje([...mensaje, chat])
                 return;
+
             case 'carta_seleccionada':
                 const carta = {
                     message: `SISTEMA: ${prueba.data.message}`,
-                    color: "mensaje red" 
+                    color: "mensaje red"
                 }
                 setMensaje([...mensaje, carta])
                 return;
-
-
 
             default:
                 console.log("default")
                 return;
         }
-
     }
-
-
-
-
-
-
-
 
     return (
         <>
@@ -137,9 +136,6 @@ const Juego = (params) => {
                     <Tablero ws={ws} estado={estado} casillasDisponibles={casillasDisponibles} />
                 </div>
                 <div>
-
-
-
                     <Informe />
                     <ApodoJugadores estado={estado} />
                     {(estadoTurno === "A" || estadoTurno === "SA" || estadoTurno === "F") && <BotonTerminarTurno ws={ws} />}
@@ -159,7 +155,6 @@ const Juego = (params) => {
             </div>
         </>
     )
-
 }
 
 export default Juego;

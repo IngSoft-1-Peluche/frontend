@@ -1,11 +1,11 @@
 import React from 'react';
-import {render} from '@testing-library/react'
+import { render } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect';
 import Acusar from './Acusar';
 
 
 test('Modulo renderiza correctamente', async () => {
-    const component = render( <Acusar />)
+    const component = render(<Acusar />)
     await component.findAllByText('Elegí un monstruo:')
     await component.findAllByText('Elegí un recinto:')
     await component.findAllByText('Elegí una víctima:')

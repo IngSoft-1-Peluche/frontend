@@ -9,6 +9,9 @@ import ResponderSospecha from '../Sospecha/Responder';
 import Informe from '../Informe/Informe';
 import { SalaChat } from '../SalaChat';
 import BotonTerminarTurno from '../TerminarTurno/BotonTerminarTurno.js';
+import './Juego.css';
+import { useHistory } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.css';
 
 
 const Juego = (params) => {
@@ -35,8 +38,11 @@ const Juego = (params) => {
     const [responder, setResponder] = useState(false)
     const [sospecha_en_curso, setSospechaEnCurso] = useState(false)
     const [mensaje, setMensaje] = useState([])
+    const history = useHistory();
 
-
+    const volverInicio = () => {
+        history.push("/")
+    }
 
 
 
@@ -130,25 +136,24 @@ const Juego = (params) => {
     return (
         <>
             <div style={{ display: "flex", flexDirection: "row" }}>
-                <div>
+                <div className = "borde" >
                     <Tablero ws={ws} estado={estado} casillasDisponibles={casillasDisponibles} />
                 </div>
-                <div>
+                <div className = "borde">
                     <Informe />
                     <ApodoJugadores estado={estado} />
                     {(estadoTurno === "A" || estadoTurno === "SA" || estadoTurno === "F") && <BotonTerminarTurno ws={ws} />}
-                </div>
-                <div>
-                    {estadoTurno === "D" && <BotonDado ws={ws} />}
-                    {estadoTurno === "SA" && <Sospechar ws={ws} />}
-                    {(estadoTurno === "A" || estadoTurno === "SA") && <Acusar ws={ws} />}
+                    {estadoTurno === "D" && <BotonDado ws={ws}/>}
                     {estadoTurno === "MS" && <ResponderSospecha ws={ws} cartas={cartasJu} sospecha={sospecha} sospecha_en_curso={sospecha_en_curso} responder={responder} />}
                 </div>
                 <div>
+                    {estadoTurno === "SA" && <Sospechar ws={ws} />}
+                    {(estadoTurno === "A" || estadoTurno === "SA") && <Acusar ws={ws} />}
+                    {estadoTurno === "T" && <button className="btn btn-primary" onClick={volverInicio} > Volver a la pagina de inicio </button>}
                     <SalaChat ws={ws} mensaje={mensaje} />
                 </div>
             </div>
-            <div>
+            <div className = "borde">
                 <CartasRepartidas cartas={cartasJu} />
             </div>
         </>

@@ -16,7 +16,7 @@ const Informe = () => {
 
   return (
     <>
-      <table>
+      <table className = "borde">
         <tbody>
           <tr >
             <th>Victima</th>

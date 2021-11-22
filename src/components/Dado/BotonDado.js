@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 const BotonDado = (params) => {
 
@@ -9,9 +9,9 @@ const BotonDado = (params) => {
   }
 
   return (
-      <button onClick={tirarDado}>
-        Tirar el dado
-      </button>
+    <button onClick={tirarDado}>
+      Tirar el dado
+    </button>
   )
 }
 

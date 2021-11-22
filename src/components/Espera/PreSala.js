@@ -45,7 +45,7 @@ const PreSala = (parametros) => {
                 setPartida(datos)
                 const mensCon = {
                     message: `SISTEMA: El jugador ${datos.jugador_conectado} se ha unido`,
-                    color: "mensaje blue" 
+                    color: "mensaje blue"
                 }
                 setMensaje([...mensaje, mensCon])
 
@@ -65,7 +65,7 @@ const PreSala = (parametros) => {
                 console.log(desconecta)
                 const mensDesc = {
                     message: `SISTEMA: El jugador ${desconecta.jugador_desconectado} ha abandonado la sala`,
-                    color: "mensaje blue" 
+                    color: "mensaje blue"
                 }
                 setMensaje([...mensaje, mensDesc])
 
@@ -74,10 +74,12 @@ const PreSala = (parametros) => {
 
                 const chat = {
                     message: `${info.data.nombre_jugador}:  ${info.data.message}`,
-                    color: "mensaje black" 
+                    color: "mensaje black"
                 }
                 setMensaje([...mensaje, chat])
 
+                return;
+            default:
                 return;
 
         }

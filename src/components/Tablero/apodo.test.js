@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import Apodo from './Apodo';
+import Apodo from './apodo';
 
 test('Modulo renderiza correctamente', async () => {
   const estado = [{
